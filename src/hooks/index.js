@@ -1,2 +1,3 @@
 export { useBugs } from './useBugs'
-export { useNeo } from './useNeo'
+export { usePages } from './usePages'
+export { useWordpress } from './useWordpress'

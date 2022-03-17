@@ -37,7 +37,7 @@ export const searchTable = async (
   tableName = 'Parts',
   options = { fields: [] }
 ) => {
-  Log('options :>> ', options)
+  // Log('options :>> ', options)
   let url = `https://api.airtable.com/v0/${baseKey}/${tableName}?`
   for (let i = 0; i < fields.length; i++) {
     const field = fields[i]
@@ -47,7 +47,7 @@ export const searchTable = async (
     url.concat(`fields%5B%5D=${field}`)
   }
 
-  Log('url', url)
+  // Log('url', url)
   axios({
     url,
     headers: {
@@ -55,7 +55,7 @@ export const searchTable = async (
       Authorization: `Bearer ${apiKey}`
     }
   }).then((result) => {
-    Log(result)
+    // Log(result)
     let raw = formatRecords(result?.data?.records)
   })
 }

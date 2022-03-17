@@ -19,9 +19,8 @@ async function executeCypherQuery(statement, params = {}) {
 }
 
 export const toObjectFormat = (records = []) => {
-  console.log('records.length', records)
-  if (!records?.length) records = [{ ...records }]
-  return records.map((n) => n.properties)
+  devmode && console.log('records', records)
+  return records?.map((r) => r['_fields']?.map((r) => r?.properties)?.[0])
 }
 
 export async function create(label = null, props = {}) {
@@ -66,5 +65,5 @@ export async function getRecords(label = null, limit = 35) {
   devmode && console.log('query', query)
   let results = await executeCypherQuery(query, {})
   console.log('results', results)
-  return toObjectFormat(results.records)
+  return toObjectFormat(results?.records)
 }

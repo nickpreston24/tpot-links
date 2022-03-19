@@ -23,10 +23,10 @@ export default {
     <!-- <pre>Mode: {{ mode }}</pre> -->
     <h1>
       <span v-if="collapsed">
-        <div>R</div>
-        <div>W</div>
+        <div>T</div>
+        <div>L</div>
       </span>
-      <span v-else>Rifle Workshop</span>
+      <span class="ml-4" v-else>TPOT Links</span>
     </h1>
 
     <SidebarLink to="/" icon="fas fa-home">Home</SidebarLink>
@@ -34,11 +34,13 @@ export default {
     <SidebarLink to="/about" icon="fas fa-image">About</SidebarLink>
 
     <span
-      class="absolute bottom-0 p-2 text-white transition duration-200 opacity-70"
+      class="absolute bottom-0 p-2 mb-4 ml-4 text-white transition duration-200 opacity-70"
       @click="toggleSidebar"
       :class="{ 'rotate-180': collapsed }"
     >
-      <icon class="fas fa-angle-double-left" />
+      <!-- <icon class="fas fa-angle-double-left" /> -->
+      <icon v-if="mode === 'RIGHT'" class="text-xl"> {{ ">>" }} </icon>
+      <icon v-else class="text-xl"> {{ "<<" }} </icon>
     </span>
   </div>
 </template>

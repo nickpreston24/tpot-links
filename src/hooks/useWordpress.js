@@ -2,11 +2,6 @@ import { ref, onMounted, computed, toRefs } from 'vue'
 import { countEmpty, groupBy, isArray, urlExists } from '../helpers'
 import { getTPOTFrontPage } from './wordpress'
 
-const initial = {
-  Title: '',
-  Url: ''
-}
-
 export function useWordpress() {
   const teachings = ref([])
   const users = ref([])
@@ -20,7 +15,11 @@ export function useWordpress() {
   /** Preload data */
   onMounted(async () => {
     loading.value = true
-    // teachings.value = getTPOTFrontPage()
+
+    // 1. Get first 10 pages
+    // 2. Get all categories
+    // 3. Get all tags
+    // 4. Get all
     loading.value = false
   })
 

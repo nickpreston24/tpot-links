@@ -8,7 +8,7 @@ const modes = {
 export const background = ref('bg-tahiti-600')
 export const collapsed = ref(false)
 export const hidden = ref(false)
-export const mode = ref('RIGHT')
+export const mode = ref('LEFT')
 export const toggleSidebar = () => (collapsed.value = !collapsed.value)
 
 export const SIDEBAR_WIDTH = 180

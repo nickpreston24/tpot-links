@@ -1,5 +1,4 @@
 <template>
-  <!-- <slot name="header" /> -->
   <Sidebar />
   <div :style="{ 'margin-left': sidebarWidth }"></div>
   <router-view v-slot="{ Component }">
@@ -25,7 +24,7 @@
 import Footer from "../molecules/Footer.vue";
 import ErrorBoundary from "../../components/ErrorBoundary.vue";
 import { devmode, prodmode } from "../../helpers";
-import { Sidebar } from "../../components/organisms";
+import { Sidebar, SidebarLink } from "../../components/organisms/sidebar";
 import { sidebarWidth } from "../organisms/sidebar/useSidebar";
 export default {
   components: {

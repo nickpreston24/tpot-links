@@ -1,37 +1,35 @@
 <template>
   <Stack>
-    <Border class="w-full h-1/2">
+    <span class="w-full h-1/2">
       <div>
         <slot name="header"></slot>
       </div>
-    </Border>
+    </span>
 
-    <Border class="w-full h-2/3">
+    <span class="w-full h-2/3">
       <slot name="top"></slot>
-    </Border>
+    </span>
 
-    <Border class="w-full h-2/3">
+    <span class="w-full h-2/3">
       <Row>
-        <Border class="w-1/2">
+        <span class="w-1/2">
           <slot name="left"></slot>
-        </Border>
-        <Border class="w-1/2">
+        </span>
+        <span class="w-1/2">
           <slot name="right"></slot>
-        </Border>
+        </span>
       </Row>
-    </Border>
+    </span>
 
-    <Border class="w-full h-1/6">
+    <span class="w-full h-1/6">
       <slot name="bottom"></slot>
-    </Border>
+    </span>
   </Stack>
 </template>
 <script>
-import Border from "../../components/atoms/Border.vue";
 import { Row, Right, Stack, Grid } from "../flex";
 export default {
   components: {
-    Border,
     Row,
     Right,
     Stack,

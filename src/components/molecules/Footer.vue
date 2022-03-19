@@ -1,5 +1,6 @@
 <template>
   <Row class="text-midnight bg-gradient-to-r from-tahiti-700 to-tahiti-300">
+    <p class="mb-2 lg:mb-0">© Copyright {{ currentYear }}</p>
     <div class="w-1/3">
       <slot name="left"></slot>
     </div>
@@ -13,6 +14,9 @@
 </template>
 <script>
 import { Right, Left, Row } from "../../components/flex";
+import { ref } from "vue";
+const currentYear = ref(new Date().getFullYear());
+
 export default {
   components: {
     Left,

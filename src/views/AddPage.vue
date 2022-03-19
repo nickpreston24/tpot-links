@@ -20,13 +20,14 @@
 </template>
 
 <script>
-import { Button } from "../atoms";
-import { countEmpty, falsies } from "../../helpers";
-import { usePages } from "../../hooks";
-import { Stack, Row, Grid } from "../../components/flex";
+import { Button } from "../components/atoms";
+import { countEmpty, falsies } from "../helpers";
+import { useTeachings } from "../hooks";
+import { Stack, Row, Grid } from "../components/flex";
+
 export default {
   setup(props) {
-    const { createPage } = usePages();
+    const { createPage } = useTeachings();
     return {
       createPage,
     };

@@ -6,13 +6,13 @@ https://vuejs.org/guide/built-ins/teleport.html#basic-usage
     <Transition name="modal">
       <div
         v-if="showModal"
-        class="modal-mask fixed z-10 inset-0 overflow-y-auto bg-black bg-opacity-50"
+        class="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-50 modal-mask"
       >
         <div
-          class="modal-wrapper flex items-start justify-center min-h-screen pt-24 text-center"
+          class="flex items-start justify-center min-h-screen pt-24 text-center modal-wrapper"
         >
           <div
-            class="modal-container bg-white rounded-lg text-left overflow-hidden shadow-xl p-8 w-1/2"
+            class="w-1/2 p-8 overflow-hidden text-left bg-white rounded-lg shadow-xl modal-container"
             role="dialog"
             ref="modal"
             aria-modal="true"
@@ -40,7 +40,6 @@ https://vuejs.org/guide/built-ins/teleport.html#basic-usage
 <script>
 import { ref, watch } from "vue";
 import { onClickOutside } from "@vueuse/core";
-import { Button } from "../../components/atoms";
 
 const props = {
   show: {
@@ -56,7 +55,6 @@ export default {
     const showModal = ref(false);
 
     function closeModal() {
-      // showModal.value = false;
       context.emit("close");
     }
     watch(

@@ -1,10 +1,6 @@
 <template>
-  <div>
-    <div
-      v-bind:class="animation"
-      @mouseover="isHovering = true"
-      @mouseout="isHovering = false"
-    >
+  <div :class="card">
+    <div :class="animation" @mouseover="isHovering = true" @mouseout="isHovering = false">
       <div>
         <slot name="header"></slot>
       </div>
@@ -19,10 +15,10 @@
 </template>
 <script setup>
 import { computed, ref } from "vue";
-// import { card as cardStyle } from "../../hooks/useTheme";
+import { card } from "../../hooks/useTheme";
 const isHovering = ref(false);
 const animation = computed(() => {
-  return isHovering ? "shadow-xl" : "shadow-lg";
+  return isHovering?.value ? "shadow-xl" : "shadow-lg";
 });
 </script>
 <style scoped>

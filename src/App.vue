@@ -3,25 +3,44 @@
     <DashboardLayout>
       <Dashboard class="min-w-full" />
 
-      <Stack mode="feed">
-        <Card class="w-32" v-for="(bug, index) in bugs" :key="index">
+      <Grid mode="photo">
+        <Card class="w-auto" v-for="(bug, index) in bugs" :key="index">
           <template:header>
-            <h1 class="text-xl">{{ bug?.Title || "[ no title ]" }}</h1>
+            <Row class="flex-wrap">
+              <h1 class="text-xl">
+                {{ bug?.Title || "[ no title ]" }}
+              </h1>
+              <Chip class="shadow-lg bg-red shadow-red/30"
+                >Issues ({{ bug?.["Related Issues"]?.length }})</Chip
+              >
+              <Chip class="shadow-md shadow-orange-400"> Status: {{ bug?.Status }} </Chip>
+            </Row>
           </template:header>
-          <!-- <div>{{ bug?.["Related Issues"] }}</div> -->
-          <div>
+          <div class="m-2 text-lg text-tahiti-700">
             {{ bug?.Description }}
           </div>
           <template:footer>
-            <Left>
-              <Row>
-                Status <Chip>{{ bug?.Status }} </Chip>
+            <Center>
+              <Row class="flex-wrap text-lg">
+                <Button class="shadow-xl shadow-regal-500/30">
+                  <h2 class="m-2">View the Page</h2>
+                  <!-- <a href="bug?.Url" /> -->
+                </Button>
               </Row>
-            </Left>
+            </Center>
           </template:footer>
         </Card>
         <!-- <Button class="border-2" @click="count += 1000">{{ count }}</Button> -->
-      </Stack>
+      </Grid>
+
+      <Center>
+        <Row>
+          <pre>result? {{ result }}</pre>
+          <label for="">Search by id</label>
+          <input v-model="text" @change="onChange" type="text" />
+          <Button @click="search">GO</Button>
+        </Row>
+      </Center>
     </DashboardLayout>
   </div>
 </template>
@@ -47,8 +66,17 @@ import {
   darkMode,
 } from "./hooks/useTheme";
 
-import { useBugs, useIssues, useLogs } from "./hooks";
+import { useBugs, useIssues, useTeachings } from "./hooks";
 import Chip from "./components/atoms/Chip.vue";
 const { issues } = useIssues();
 const { bugs } = useBugs();
+const { getPageById } = useTeachings();
+
+const text = ref("12345");
+const result = ref("");
+
+const search = async () => {
+  const response = await getPageById(text.value);
+  result.value = response?.data;
+};
 </script>

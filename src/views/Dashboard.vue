@@ -43,7 +43,7 @@
 
             <div class="mx-5">
               <h4 class="text-2xl font-semibold text-gray-700">{{ bugs?.length }}</h4>
-              <div class="text-gray-500">Total Bugs</div>
+              <div class="">Total Bugs</div>
             </div>
           </div>
         </div>
@@ -74,7 +74,7 @@
 
             <div class="mx-5">
               <h4 class="text-2xl font-semibold text-gray-700">{{ issues?.length }}</h4>
-              <div class="text-gray-500">Total Issues</div>
+              <div class="">Total Issues</div>
             </div>
           </div>
         </div>
@@ -104,8 +104,10 @@
             </div>
 
             <div class="mx-5">
-              <h4 class="text-2xl font-semibold text-gray-700">{{ logs?.length }}</h4>
-              <div class="text-gray-500">Logs</div>
+              <h4 class="text-2xl font-semibold text-gray-700">
+                {{ teachings?.length }}
+              </h4>
+              <div class="">Teachings</div>
             </div>
           </div>
         </div>
@@ -122,47 +124,52 @@
           <thead :class="tableHeader">
             <tr>
               <th
-                class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left uppercase border-b border-gray-200"
               >
                 Name
               </th>
               <th
-                class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left uppercase border-b border-gray-200"
               >
                 Title
               </th>
               <th
-                class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left uppercase border-b border-gray-200"
               >
                 Status
               </th>
               <th
-                class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left uppercase border-b border-gray-200"
               >
-                Role
+                Author
               </th>
-              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+              <th class="px-6 py-3 border-b border-gray-200"></th>
             </tr>
           </thead>
 
           <tbody class="bg-white">
-            <tr v-for="(u, index) in users" :key="index">
+            <tr v-for="(teaching, index) in teachings" :key="index">
               <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                 <div class="flex items-center">
                   <div class="flex-shrink-0 w-10 h-10">
-                    <img
+                    <!-- Avatar Goes here -->
+                    <span
+                      class="flex items-center justify-center w-10 h-10 font-extrabold rounded-full text-tiny"
+                      >{{ teaching?.Id }}</span
+                    >
+                    <!-- <img
                       class="w-10 h-10 rounded-full"
                       src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                       alt=""
-                    />
+                    /> -->
                   </div>
 
                   <div class="ml-4">
                     <div class="text-sm font-medium leading-5 text-gray-900">
-                      {{ u.name }}
+                      {{ teaching.Title }}
                     </div>
-                    <div class="text-sm leading-5 text-gray-500">
-                      {{ u.email }}
+                    <div class="text-sm leading-5">
+                      <!-- {{ teaching.Url }} -->
                     </div>
                   </div>
                 </div>
@@ -170,24 +177,22 @@
 
               <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                 <div class="text-sm leading-5 text-gray-900">
-                  {{ u.title }}
+                  <!-- {{ teaching.Status }} -->
                 </div>
-                <div class="text-sm leading-5 text-gray-500">
-                  {{ u.title2 }}
-                </div>
+                <div class="text-sm leading-5">Related: {{ teaching.Links?.length }}</div>
               </td>
 
               <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                 <span
                   class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full"
-                  >{{ u.status }}</span
+                  >{{ teaching.Status.toUpperCase() }}</span
                 >
               </td>
 
               <td
-                class="px-6 py-4 text-sm leading-5 text-gray-500 border-b border-gray-200 whitespace-nowrap"
+                class="px-6 py-4 text-sm leading-5 border-b border-gray-200 whitespace-nowrap"
               >
-                {{ u.role }}
+                {{ teaching.Author }}
               </td>
 
               <td
@@ -244,7 +249,7 @@ import { ref } from "vue";
 import Banner from "../components/atoms/Banner.vue";
 import Breadcrumb from "../components/atoms/Breadcrumb.vue";
 import { dashboard, tableHeader } from "../hooks/useTheme";
-import { useBugs, useIssues, useLogs } from "../hooks";
+import { useBugs, useIssues, useLogs, useTeachings } from "../hooks";
 const { bugs } = useBugs();
 const { issues } = useIssues();
 const { logs } = useLogs();
@@ -267,5 +272,24 @@ const testUser: User = {
   role: "Owner",
 };
 
-const users = ref<User[]>([...Array(10).keys()].map(() => testUser));
+/**
+ * Id: p?.id,
+      Title: p?.title?.rendered,
+      Url: p?.link,
+      Slug: p?.slug,
+      Excerpt: p?.excerpt?.rendered,
+      Categories: p?.categories,
+      Tags: p?.tags,
+      Author: p?.author,
+      Status: p?.status,
+      Description: p?.description || "",
+      Comment_status: p?.comment_status,
+
+      // the links found in page
+      Links: links,
+ * 
+ */
+// const users = ref<User[]>([...Array(10).keys()].map(() => testUser));
+
+const { teachings } = useTeachings();
 </script>

@@ -48,11 +48,11 @@ export const themeMap = computed(() => {
       sidebar: `${lightPallete.value}`,
       table: `${lightPallete.value} `,
       link: `${lightPallete.value}`,
-      card: `bg-slate-100 text-slate-700 rounded-xl border-orange-600`,
+      card: `bg-slate-100 text-slate-700 rounded-xl border-orange-600 shadow-ocean-500`,
       banner: `${lightPallete.value}`,
       breadcrumb: `${lightPallete.value}`,
       footer: `${lightPallete.value}`,
-      dashboard: `${lightPallete.value}`,
+      dashboard: `${lightPalleteAlt.value}`,
       page: `${lightPalleteAlt.value}`,
       tableHeader: `${lightPallete.value}`
     }
@@ -80,6 +80,7 @@ export const footer = computed(() => currentTheme.value['footer'])
 export const dashboard = computed(() => currentTheme.value['dashboard'])
 export const page = computed(() => currentTheme.value['page'])
 export const tableHeader = computed(() => currentTheme.value['tableHeader'])
+export const chip = `bg-orange-500 text-white border-white`
 
 // Allow theme changes, but hide the current theme value
 export const setTheme = (name = 'tahiti') => {

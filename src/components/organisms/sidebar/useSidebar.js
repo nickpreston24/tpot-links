@@ -1,4 +1,5 @@
 import { ref, computed } from 'vue'
+import { sidebar } from '../../../hooks/useTheme'
 
 const modes = {
   LEFT: 'fixed top-0 bottom-0 left-0 flex flex-col float-left',
@@ -19,5 +20,5 @@ export const sidebarWidth = computed(
 )
 
 export const className = computed(() => {
-  return modes[mode.value.toUpperCase()] + ' ' + background.value
+  return `${modes[mode.value.toUpperCase()]} ${sidebar.value}`
 })

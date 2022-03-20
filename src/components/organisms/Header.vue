@@ -1,8 +1,9 @@
 <template>
   <header
-    class="flex items-center justify-between px-6 py-2 bg-white border-b-4 border-indigo-600"
+    class="z-0 flex items-center justify-between px-6 py-2 bg-white border-b-4 border-indigo-600 max-w-auto"
+    :class="searchbar"
   >
-    <div class="flex items-center">
+    <div cl class="flex items-center">
       <button
         @click="collapsed = true"
         class="text-gray-500 focus:outline-none lg:hidden"
@@ -24,7 +25,7 @@
       </button>
 
       <div class="relative mx-4 lg:mx-0">
-        <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+        <span class="absolute inset-y-0 left-0 flex items-center pl-3 ml-2">
           <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none">
             <path
               d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
@@ -37,7 +38,7 @@
         </span>
 
         <input
-          class="w-32 py-2 pl-10 pr-4 text-indigo-600 border-gray-200 rounded-md sm:w-64 focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+          class="py-2 pl-10 pr-4 ml-8 text-indigo-600 border-gray-200 rounded-md sm:w-64 focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
           type="text"
           placeholder="Search"
         />
@@ -46,6 +47,12 @@
 
     <div class="flex items-center">
       <div class="flex items-center">
+        <div class="relative">
+          <button class="" @click="toggleDarkMode">
+            <icon>{{ darkMode ? "Mode: Dark :)" : "Mode: Light :(" }}</icon>
+          </button>
+        </div>
+
         <div class="relative">
           <button
             @click="notificationOpen = !notificationOpen"
@@ -184,33 +191,15 @@
     </div>
   </header>
 </template>
-<script>
-import { ref } from "vue";
-import { collapsed } from "../organisms/sidebar/useSidebar";
+<script setup>
+import { ref, computed } from "vue";
+import { collapsed, hidden } from "../organisms/sidebar/useSidebar";
+import { Center, Stack, Row, Right, Left, Flex } from "../flex";
+import { darkMode, toggleDarkMode } from "../../hooks";
 const dropdownOpen = ref(false);
 const notificationOpen = ref(false);
-import { Center, Stack, Row, Right, Left, Flex } from "../flex";
-export default {
-  setup(props) {
-    // destructure state and api from any use*() stores you make.
-
-    return {
-      // TODO: return state and api here
-      // state vars:
-      // api funcs:
-    };
-  },
-  computed() {
-    // do stuff
-  },
-  components: {
-    // Flex box helpers
-    Center,
-    Stack,
-    Row,
-    Right,
-    Left,
-    Flex,
-  },
-};
+const searchbar = computed(() => {
+  if (!!hidden.value) return "";
+  return collapsed.value ? "ml-10" : "ml-48";
+});
 </script>

@@ -15,23 +15,23 @@ export default {
 <template>
   <div
     v-show="!hidden"
-    class="duration-300 p-25 text-tahiti-100 z-1"
+    class="text-2xl duration-300 p-25 text-tahiti-100 z-1"
     :class="className"
     :style="{ width: sidebarWidth }"
   >
-    <!-- <pre>classname: {{ className }}</pre> -->
-    <!-- <pre>Mode: {{ mode }}</pre> -->
-    <h1>
+    <h1 class="mx-auto">
       <span v-if="collapsed">
         <div>T</div>
         <div>L</div>
       </span>
-      <span class="ml-4" v-else>TPOT Links</span>
+      <span class="" v-else>TPOT Links</span>
     </h1>
 
-    <SidebarLink to="/" icon="fas fa-home">Home</SidebarLink>
-    <SidebarLink to="/builds" icon="fas fa-gear">Builder</SidebarLink>
-    <SidebarLink to="/about" icon="fas fa-image">About</SidebarLink>
+    <span class="mx-auto">
+      <SidebarLink to="/" icon="fas fa-home">Home</SidebarLink>
+      <!-- <SidebarLink to="/issues" icon="fas fa-gear">Issues</SidebarLink> -->
+      <SidebarLink to="/about" icon="fas fa-image">About</SidebarLink>
+    </span>
 
     <span
       class="absolute bottom-0 p-2 mb-4 ml-4 text-white transition duration-200 opacity-70"

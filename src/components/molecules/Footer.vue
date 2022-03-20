@@ -1,29 +1,24 @@
 <template>
-  <Row class="text-midnight bg-gradient-to-r from-tahiti-700 to-tahiti-300">
-    <p class="mb-2 lg:mb-0">© Copyright {{ currentYear }}</p>
-    <div class="w-1/3">
-      <slot name="left"></slot>
-    </div>
-    <div class="w-1/3">
-      <slot></slot>
-    </div>
-    <div class="w-1/3">
-      <slot name="right"></slot>
-    </div>
-  </Row>
+  <Stack>
+    <Row class="" :class="footer">
+      <div class="w-1/3">
+        <slot name="left"></slot>
+      </div>
+      <div class="w-1/3">
+        <slot></slot>
+      </div>
+      <div class="w-1/3">
+        <slot name="right"></slot>
+      </div>
+      <p class="">© Copyright {{ currentYear }}</p>
+    </Row>
+  </Stack>
 </template>
-<script>
+<script setup>
 import { Right, Left, Row } from "../../components/flex";
 import { ref } from "vue";
+import { footer } from "../../hooks";
 const currentYear = ref(new Date().getFullYear());
-
-export default {
-  components: {
-    Left,
-    Right,
-    Row,
-  },
-};
 </script>
 
 <!-- 

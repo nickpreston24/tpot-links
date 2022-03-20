@@ -1,8 +1,8 @@
 <template>
-  <nav class="mb-6 text-sm font-semibold" aria-label="Breadcrumb">
+  <nav class="mb-6 text-sm font-semibold" :class="breadcrumb" aria-label="Breadcrumb">
     <ol class="inline-flex p-0 list-none">
       <li class="flex items-center text-purple">
-        <a href="/" class="text-gray-500">Dashboard</a>
+        <a href="/" class="ml-2">Dashboard</a>
         <svg
           class="w-3 h-3 mx-3 text-blue-600 fill-current"
           xmlns="http://www.w3.org/2000/svg"
@@ -14,15 +14,16 @@
         </svg>
       </li>
       <li :key="index" class="flex items-center">
-        <a :href="'/' + breadcrumb" class="text-gray-600">{{ breadcrumbName }}</a>
+        <a :href="'/' + breadcrumb" class="">{{ breadcrumbName }}</a>
       </li>
     </ol>
   </nav>
 </template>
-<script>
+<script setup>
 import { defineProps, computed } from "vue";
+import { breadcrumb } from "../../hooks/useTheme";
 const props = defineProps();
 const breadcrumbName = computed(() => {
-  return props.breadcrumb.toUpperCase();
+  return props?.breadcrumb?.toUpperCase() || "(???)";
 });
 </script>

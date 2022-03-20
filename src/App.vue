@@ -1,83 +1,47 @@
 <template>
-  <div>
-    <Dashboard class="h-screen" />
+  <div :class="page">
+    <DashboardLayout>
+      <Dashboard class="min-w-full" />
 
-    <!-- <div v-else>
-      <DashboardSplitLayout class="text-xl font-bold text-white">
-        <template v-slot:header>
-          <Stack class="w-auto h-32 bg-yellow-500 border-tahiti-600">
-            <teachings-panel />
-          </Stack>
-        </template>
-        <template v-slot:top>
-          <Stack class="w-auto h-32 bg-yellow-500 border-tahiti-600">
-            <bugs-panel />
-          </Stack>
-        </template>
-        <template v-slot:left>
-          <Left class="w-auto h-32 bg-yellow-500 border-tahiti-600">
-            <logs-panel />
-          </Left>
-        </template>
-        <template v-slot:right>
-          <Right class="w-auto h-32 bg-yellow-500 border-tahiti-600">
-            <Stack class="w-16 h-16 bg-tahiti-500">1</Stack>
-            <Stack class="w-16 h-16 bg-tahiti-500">2</Stack>
-            <Stack class="w-16 h-16 bg-tahiti-500">3</Stack>
-          </Right>
-        </template>
-        <template v-slot:bottom>
-          <Stack class="w-auto h-32 bg-yellow-500 border-tahiti-600">Bottom</Stack>
-        </template>
-      </DashboardSplitLayout>
-    </div> -->
+      <Grid>
+        <Card class="border-2" v-for="(bug, index) in bugs" :key="index">
+          <template:header>
+            <h1>{{ bug?.Title || "[ no title ]" }}</h1>
+          </template:header>
+          <div>hi</div>
+          <template:footer>
+            <Chip>{{ bug?.Status }} </Chip>
+          </template:footer>
+        </Card>
+        <!-- <Button class="border-2" @click="count += 1000">{{ count }}</Button> -->
+      </Grid>
+    </DashboardLayout>
   </div>
 </template>
 
-<script>
-import { DashboardSplitLayout } from "./components/templates";
-import { Center, Stack, Row, Right, Left, Flex } from "./components/flex";
+<script setup>
+import { DashboardLayout } from "./components/templates";
+import { Center, Stack, Row, Right, Left, Flex, Grid } from "./components/flex";
 import BugsPanel from "./views/BugsPanel.vue";
 import TeachingsPanel from "./views/TeachingsPanel.vue";
 import LogsPanel from "./views/LogsPanel.vue";
 import { ref } from "vue  ";
 import { devmode } from "./helpers";
 import { Dashboard } from "./views";
+import { Button } from "./components/atoms";
+import { Card } from "./components/molecules";
+import {
+  primaryButton,
+  header,
+  sidebar,
+  page,
+  toggleDarkMode,
+  themeMap,
+  darkMode,
+} from "./hooks/useTheme";
 
-export default {
-  name: "App",
-  setup(props) {
-    const dashboardType = ref("default");
-    return {
-      dashboardType,
-    };
-  },
-  data() {
-    return { dashTypes: ["default", "standard"], devmode };
-  },
-  computed: {
-    dashboardType() {
-      return this.dashboardType.value;
-    },
-  },
-  methods: {
-    setDashboardType() {
-      console.log("dashboardType.value", this?.dashboardType);
-      this.dashboardType.value = "test";
-    },
-  },
-  components: {
-    BugsPanel,
-    Dashboard,
-    DashboardSplitLayout,
-    Center,
-    Stack,
-    Row,
-    Right,
-    Left,
-    Flex,
-    LogsPanel,
-    TeachingsPanel,
-  },
-};
+import { useBugs, useIssues, useLogs } from "./hooks";
+import Chip from "./components/atoms/Chip.vue";
+const { issues } = useIssues();
+const { bugs } = useBugs();
 </script>

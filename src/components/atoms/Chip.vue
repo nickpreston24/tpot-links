@@ -2,8 +2,8 @@
   <div class="flex flex-row">
     <button
       @click="close"
-      class="inline-flex items-center px-12 py-3 font-semibold bg-transparent border-2 rounded-full shadow-sm"
       :class="style"
+      class="inline-flex items-center px-12 py-3 font-semibold border-2 rounded-full shadow-sm"
     >
       <Row class="m-1">
         <slot></slot>

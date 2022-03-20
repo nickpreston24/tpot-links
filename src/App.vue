@@ -3,18 +3,25 @@
     <DashboardLayout>
       <Dashboard class="min-w-full" />
 
-      <Grid>
-        <Card class="border-2" v-for="(bug, index) in bugs" :key="index">
+      <Stack mode="feed">
+        <Card class="w-32" v-for="(bug, index) in bugs" :key="index">
           <template:header>
-            <h1>{{ bug?.Title || "[ no title ]" }}</h1>
+            <h1 class="text-xl">{{ bug?.Title || "[ no title ]" }}</h1>
           </template:header>
-          <div>hi</div>
+          <!-- <div>{{ bug?.["Related Issues"] }}</div> -->
+          <div>
+            {{ bug?.Description }}
+          </div>
           <template:footer>
-            <Chip>{{ bug?.Status }} </Chip>
+            <Left>
+              <Row>
+                Status <Chip>{{ bug?.Status }} </Chip>
+              </Row>
+            </Left>
           </template:footer>
         </Card>
         <!-- <Button class="border-2" @click="count += 1000">{{ count }}</Button> -->
-      </Grid>
+      </Stack>
     </DashboardLayout>
   </div>
 </template>

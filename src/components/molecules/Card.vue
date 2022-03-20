@@ -1,5 +1,5 @@
 <template>
-  <div :class="card">
+  <div>
     <div
       v-bind:class="animation"
       @mouseover="isHovering = true"
@@ -19,7 +19,7 @@
 </template>
 <script setup>
 import { computed, ref } from "vue";
-import { card } from "../../hooks/useTheme";
+// import { card as cardStyle } from "../../hooks/useTheme";
 const isHovering = ref(false);
 const animation = computed(() => {
   return isHovering ? "shadow-xl" : "shadow-lg";

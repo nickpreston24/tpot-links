@@ -58,12 +58,27 @@ function toNeoProps(props) {
 }
 
 export async function getRecords(label = null, limit = 35) {
-  if (!label)
-    return [`Nodes could not be found because you did not provide a label name`]
-
   let query = `MATCH (n:${label}) return n LIMIT ${limit}`
   devmode && console.log('query', query)
   let results = await executeCypherQuery(query, {})
   console.log('results', results)
   return toObjectFormat(results?.records)
+}
+
+export async function searchNodes(label = null, props = {}) {
+  const query = `match (n:${label}) return n`
+  devmode && console.log('query', query)
+  let results = await executeCypherQuery(query, {})
+  devmode && console.log('results', results?.records)
+  return toObjectFormat(results?.records)
+}
+
+export const deleteNode = async (label = null, id = null) => {
+  if (!label) throw Error(`label cannot be null or empty`)
+  const query = `
+  match (n: ${label}{Id: '${id}'}) detach delete n
+  `.trim()
+  console.log('query', query)
+  let results = await executeCypherQuery(query, {})
+  // devmode && console.log('result of deletion :>> ', results)
 }

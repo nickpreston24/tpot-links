@@ -1,7 +1,7 @@
 <template>
   <div :class="page">
     <DashboardLayout>
-      <Dashboard class="min-w-full" />
+      <Dashboard class="min-w-full" v-if="true" />
 
       <Grid mode="photo">
         <Card class="w-auto" v-for="(bug, index) in bugs" :key="index">
@@ -33,7 +33,7 @@
         <!-- <Button class="border-2" @click="count += 1000">{{ count }}</Button> -->
       </Grid>
 
-      <Center>
+      <Center v-if="false">
         <Row>
           <pre>result? {{ result }}</pre>
           <label for="">Search by id</label>
@@ -41,6 +41,23 @@
           <Button @click="search">GO</Button>
         </Row>
       </Center>
+
+      <div v-if="false">
+        <label for="">SVG ICONS</label>
+        <Stack v-for="icon in icons" :key="icon.id">
+          <Card class="bg-white">
+            <h1>{{ icon?.Name }}</h1>
+            <p>{{ icon?.Id }}</p>
+            <MySVG
+              class="w-64 h-64"
+              :width="icon?.Width"
+              :height="icon?.Height"
+              :viewbox="icon?.ViewBox"
+              :svg="icon?.Content"
+            />
+          </Card>
+        </Stack>
+      </div>
     </DashboardLayout>
   </div>
 </template>
@@ -55,7 +72,7 @@ import { ref } from "vue  ";
 import { devmode } from "./helpers";
 import { Dashboard } from "./views";
 import { Button } from "./components/atoms";
-import { Card } from "./components/molecules";
+import { Card, SVGIconBase } from "./components/molecules";
 import {
   primaryButton,
   header,
@@ -66,11 +83,16 @@ import {
   darkMode,
 } from "./hooks/useTheme";
 
-import { useBugs, useIssues, useTeachings } from "./hooks";
+import { useBugs, useIssues, useTeachings, useSVGs } from "./hooks";
 import Chip from "./components/atoms/Chip.vue";
+import MySVG from "./hooks/MySVG.vue";
+
+// import { createSVG } from "./hooks/MySVG";
+
 const { issues } = useIssues();
 const { bugs } = useBugs();
 const { getPageById } = useTeachings();
+const { getSVGIcon, icons } = useSVGs();
 
 const text = ref("12345");
 const result = ref("");

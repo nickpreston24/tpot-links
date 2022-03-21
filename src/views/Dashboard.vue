@@ -120,7 +120,8 @@
       <div
         class="inline-block min-w-full align-middle border-b border-gray-200 shadow sm:rounded-lg"
       >
-        <table class="min-w-full m-2">
+        <p v-if="loading">Loading Teachings...</p>
+        <table v-else-if="!loading" class="min-w-full m-2">
           <thead :class="tableHeader">
             <tr>
               <th
@@ -148,7 +149,7 @@
           </thead>
 
           <tbody class="bg-white">
-            <tr v-for="(teaching, index) in teachings" :key="index">
+            <tr v-for="(teaching, index) in teachings" :id="index" :key="index">
               <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                 <div class="flex items-center">
                   <div class="flex-shrink-0 w-10 h-10">
@@ -179,7 +180,9 @@
                 <div class="text-sm leading-5 text-gray-900">
                   <!-- {{ teaching.Status }} -->
                 </div>
-                <div class="text-sm leading-5">Related: {{ teaching.Links?.length }}</div>
+                <div class="text-sm leading-5">
+                  Related: {{ teaching?.Links?.split(",")?.length }}
+                </div>
               </td>
 
               <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
@@ -211,14 +214,17 @@
                           d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
                         />
                         <path
-                          fill-rule="evenodd"
+                          fill-deleteTeachingrule="evenodd"
                           d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
                           clip-rule="evenodd"
                         />
                       </svg>
                     </a>
-                    <form method="POST">
-                      <button class="px-2 mx-2 rounded-md">
+                    <div>
+                      <button
+                        @click="deleteTeachingNode(teaching?.Id)"
+                        class="px-2 mx-2 rounded-md"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           class="w-5 h-5 text-red-700"
@@ -232,7 +238,7 @@
                           />
                         </svg>
                       </button>
-                    </form>
+                    </div>
                   </span>
                 </div>
               </td>
@@ -249,47 +255,10 @@ import { ref } from "vue";
 import Banner from "../components/atoms/Banner.vue";
 import Breadcrumb from "../components/atoms/Breadcrumb.vue";
 import { dashboard, tableHeader } from "../hooks/useTheme";
+import { Modal } from "../components/molecules";
 import { useBugs, useIssues, useLogs, useTeachings } from "../hooks";
 const { bugs } = useBugs();
 const { issues } = useIssues();
 const { logs } = useLogs();
-
-interface User {
-  name: string;
-  email: string;
-  title: string;
-  title2: string;
-  status: string;
-  role: string;
-}
-
-const testUser: User = {
-  name: "John Doe",
-  email: "john@example.com",
-  title: "Software Engineer",
-  title2: "Web dev",
-  status: "Active",
-  role: "Owner",
-};
-
-/**
- * Id: p?.id,
-      Title: p?.title?.rendered,
-      Url: p?.link,
-      Slug: p?.slug,
-      Excerpt: p?.excerpt?.rendered,
-      Categories: p?.categories,
-      Tags: p?.tags,
-      Author: p?.author,
-      Status: p?.status,
-      Description: p?.description || "",
-      Comment_status: p?.comment_status,
-
-      // the links found in page
-      Links: links,
- * 
- */
-// const users = ref<User[]>([...Array(10).keys()].map(() => testUser));
-
-const { teachings } = useTeachings();
+const { teachings, loading, deleteTeachingNode } = useTeachings();
 </script>

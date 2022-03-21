@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Log } from '../helpers'
+import { devmode, Log } from '../helpers'
 
 const apiKey = import.meta.env.VITE_VERCEL_AIRTABLE_API_KEY
 const baseKey = import.meta.env.VITE_VERCEL_BASE_KEY
@@ -34,7 +34,7 @@ export const getRecords = async (tableName, maxRecords = 10) => {
   return formatRecords(result?.data?.records)
 }
 
-export const searchTable = async (tableName = null) => {
+export const searchTable = async (tableName = null, fields = []) => {
   if (!tableName) throw Error(`tableName cannot be null or empty`)
   let url = `https://api.airtable.com/v0/${baseKey}/${tableName}?`
   for (let i = 0; i < fields.length; i++) {
@@ -45,6 +45,7 @@ export const searchTable = async (tableName = null) => {
     url.concat(`fields%5B%5D=${field}`)
   }
 
+  devmode && console.log('airtable search url :>> ', url)
   const result = await axios({
     url,
     headers: {

@@ -12,12 +12,10 @@
     </transition>
   </router-view>
   <Footer class="min-h-64">
-    <!-- <template v-slot:left>LEFT</template> -->
     <Stack>
       <a class="m-2" href="#">Affiliates</a>
       <a class="m-2" href="#">Help</a>
     </Stack>
-    <!-- <template v-slot:right>RIGHT</template> -->
   </Footer>
 </template>
 <script>
@@ -30,7 +28,7 @@ export default {
   components: {
     Sidebar,
     Footer,
-    ErrorBoundary,
+    // ErrorBoundary,
   },
   data() {
     return {

@@ -29,7 +29,7 @@ export default {
 
     <span class="mx-auto">
       <SidebarLink to="/" icon="fas fa-home">Home</SidebarLink>
-      <!-- <SidebarLink to="/issues" icon="fas fa-gear">Issues</SidebarLink> -->
+      <SidebarLink to="/issues" icon="fas fa-gear">Issues</SidebarLink>
       <SidebarLink to="/about" icon="fas fa-image">About</SidebarLink>
     </span>
 

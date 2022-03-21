@@ -2,7 +2,7 @@
   <button
     @click="close"
     :class="chip"
-    class="inline-flex items-center px-12 py-3 font-semibold border-2 rounded-full shadow-sm"
+    class="inline-flex items-center font-semibold border-2 rounded-full shadow-sm"
   >
     <Row class="m-1">
       <slot></slot>

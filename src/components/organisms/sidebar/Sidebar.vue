@@ -1,17 +1,3 @@
-<script>
-import SidebarLink from "./SidebarLink.vue";
-import { collapsed, toggleSidebar, sidebarWidth, className, hidden } from "./useSidebar";
-
-export default {
-  props: {
-    mode: { type: String, default: "LEFT" },
-  },
-  components: { SidebarLink },
-  setup() {
-    return { collapsed, toggleSidebar, sidebarWidth, className, hidden };
-  },
-};
-</script>
 <template>
   <div
     v-show="!hidden"
@@ -31,8 +17,8 @@ export default {
       <SidebarLink to="/" icon="fas fa-home">Home</SidebarLink>
       <SidebarLink to="/issues" icon="fas fa-gear">Issues</SidebarLink>
       <SidebarLink to="/about" icon="fas fa-image">About</SidebarLink>
+      <SidebarLink v-if="devmode" to="/sandbox" icon="fas fa-image">Sandbox</SidebarLink>
     </span>
-
     <span
       class="absolute bottom-0 p-2 mb-4 ml-4 text-white transition duration-200 opacity-70"
       @click="toggleSidebar"
@@ -44,6 +30,14 @@ export default {
     </span>
   </div>
 </template>
+<script setup>
+import { devmode } from "../../../helpers";
+import SidebarLink from "./SidebarLink.vue";
+import { collapsed, toggleSidebar, sidebarWidth, className, hidden } from "./useSidebar";
+const props = defineProps({
+  mode: { type: String, default: "LEFT" },
+});
+</script>
 <style scoped>
 .rotate-180 {
   transform: rotate(180deg);

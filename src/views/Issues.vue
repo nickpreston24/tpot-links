@@ -10,10 +10,12 @@
               <h1 class="text-xl">
                 {{ bug?.Title || "[ no title ]" }}
               </h1>
-              <Chip class="shadow-lg bg-red shadow-red/30"
+              <Chip class="shadow-lg shadow-orange-400/50"
                 >Issues ({{ bug?.["Related Issues"]?.length }})</Chip
               >
-              <Chip class="shadow-md shadow-orange-400"> Status: {{ bug?.Status }} </Chip>
+              <Chip class="shadow-lg shadow-orange-400/50">
+                Status: {{ bug?.Status }}
+              </Chip>
             </Row>
           </template:header>
           <div class="m-2 text-lg text-tahiti-700">
@@ -22,10 +24,11 @@
           <template:footer>
             <Center>
               <Row class="flex-wrap text-lg">
-                <Button class="shadow-xl shadow-regal-500/30">
-                  <h2 class="m-2">View the Page</h2>
-                  <!-- <a href="bug?.Url" /> -->
-                </Button>
+                <a :href="bug?.URL">
+                  <Button class="shadow-xl shadow-regal-500/30">
+                    <h2 class="">View the Page</h2>
+                  </Button>
+                </a>
               </Row>
             </Center>
           </template:footer>

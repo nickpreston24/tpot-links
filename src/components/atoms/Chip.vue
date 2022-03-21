@@ -2,7 +2,7 @@
   <button
     @click="close"
     :class="chip"
-    class="inline-flex items-center font-semibold border-2 rounded-full shadow-sm"
+    class="inline-flex items-center font-semibold border-2 rounded-full"
   >
     <Row class="m-1">
       <slot></slot>
@@ -11,7 +11,7 @@
   </button>
 </template>
 <script setup>
-import { computed, ref } from "vue-demi";
+import { computed, ref } from "vue";
 import Row from "../flex/Row.vue";
 import Stack from "../flex/Stack.vue";
 import { chip } from "../../hooks/useTheme";

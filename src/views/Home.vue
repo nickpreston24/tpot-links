@@ -8,10 +8,9 @@
       <Chip v-for="(link, index) in links" :key="index">
         <router-link
           :to="link?.route"
-          class="relative flex items-center h-8 m-2 font-normal text-white no-underline rounded cursor-pointer select-none hover:bg-tahiti-500 active:bg-tahiti-800"
+          class="relative flex items-center font-normal text-white no-underline rounded cursor-pointer select-none hover:bg-tahiti-500 active:bg-tahiti-800"
           :class="{ active: isActive }"
         >
-          <!-- <icon class="flex-shrink w-5 ml-2 mr-2" :class="icon"></icon> -->
           <transition name="fade">
             <span v-if="!collapsed">
               {{ link?.name }}
@@ -21,7 +20,7 @@
       </Chip>
       <Chip>
         <button class="" @click="toggleDarkMode">
-          <icon>{{ darkMode ? "Mode: Dark :)" : "Mode: Light :(" }}</icon>
+          <icon>Toggle {{ darkMode ? "Light Mode" : "Dark Mode" }}</icon>
         </button>
       </Chip>
     </Row>
@@ -29,13 +28,13 @@
 </template>
 
 <script setup>
-import { ref } from "vue-demi";
+import { ref } from "vue";
 import { Center, Stack, Row, Right, Left, Flex } from "../components/flex";
 import { Chip } from "../components/atoms";
 import { page, toggleDarkMode, darkMode } from "../hooks/useTheme";
 const links = ref([
   {
-    name: "Issues",
+    name: "Go to Issues",
     route: "issues",
   },
 ]);

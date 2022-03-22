@@ -5,7 +5,7 @@ import BugsPanel from './BugsPanel.vue'
 import TeachingsPanel from './TeachingsPanel.vue'
 import Dashboard from './Dashboard.vue'
 import SVGPanel from './SVGPanel.vue'
-import FuzzSearchPanel from './FuzzSearchPanel.vue'
+import FuzzySearchPanel from './FuzzySearchPanel.vue'
 /// Sample views here: https://github.com/tal7aouy/vue-board/tree/main/src/views
 export {
   AddPage,
@@ -15,5 +15,5 @@ export {
   BugsPanel,
   TeachingsPanel,
   SVGPanel,
-  FuzzSearchPanel
+  FuzzySearchPanel
 }

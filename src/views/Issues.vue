@@ -4,19 +4,21 @@
       <Dashboard class="min-w-full" v-if="true" />
 
       <!-- Bugs found -->
-      <h1 class="text-3xl">Bugs Reported:</h1>
+      <h1 class="text-2xl">Bugs Reported:</h1>
       <Grid mode="photo">
         <Card class="w-auto" v-for="(bug, index) in bugs" :key="index">
           <template:header>
-            <Row class="flex-wrap">
+            <Stack class="flex-wrap">
               <h1 class="text-xl">
                 {{ bug?.Title || "[ no title ]" }}
               </h1>
-              <Chip>Issues ({{ bug?.["Related Issues"]?.length }})</Chip>
-              <Chip> Status: {{ bug?.Status }} </Chip>
-            </Row>
+              <Row>
+                <Chip> Known Fixes: ({{ bug?.["Related Issues"]?.length || 0 }})</Chip>
+                <Chip> Status: {{ bug?.Status }} </Chip>
+              </Row>
+            </Stack>
           </template:header>
-          <div class="m-2 text-lg text-tahiti-700">
+          <div class="h-32 m-2 text-lg text-tahiti-700">
             {{ bug?.Description }}
           </div>
           <template:footer>
@@ -34,18 +36,20 @@
       </Grid>
 
       <!-- Known causes of issues -->
-      <h1 v-if="devmode" class="text-3xl">Things to Look for:</h1>
+      <h1 class="text-2xl">Issues Detected:</h1>
       <Grid mode="photo">
-        <Card class="w-auto" v-for="(issue, index) in issues" :key="index">
+        <Card class="w-auto" v-for="(issue, index) in foundIssues" :key="index">
           <template:header>
             <Row class="flex-wrap">
               <h1 class="text-xl">
-                {{ issue?.Name || "[ no title ]" }}
+                <b>Page: </b> {{ issue?.Teaching?.Title || "[ no title ]" }}
               </h1>
             </Row>
           </template:header>
-          <div class="m-2 text-lg text-tahiti-700">
-            {{ issue?.Description }}
+          <div class="h-32 m-2 text-lg">
+            <p><b>Issue: </b> {{ issue?.Detected?.[0].Name }}</p>
+            <b>Description: </b>
+            <p>{{ issue?.Detected?.[1].Description }}</p>
           </div>
           <template:footer>
             <Center>
@@ -54,8 +58,6 @@
           </template:footer>
         </Card>
       </Grid>
-
-      
     </DashboardLayout>
   </div>
 </template>
@@ -84,11 +86,12 @@ import {
 import { useBugs, useIssues, useTeachings, useSVGs } from "../hooks";
 import Chip from "../components/atoms/Chip.vue";
 import MySVG from "../hooks/MySVG.vue";
+import { computed } from "vue-demi";
 // import { createSVG } from "../hooks/MySVG";
 
 const { issues } = useIssues();
 const { bugs } = useBugs();
-const { getPageById } = useTeachings();
+const { getPageById, teachings } = useTeachings();
 const { getSVGIcon, icons } = useSVGs();
 
 const text = ref("12345");
@@ -98,4 +101,20 @@ const search = async () => {
   const response = await getPageById(text.value);
   result.value = response?.data;
 };
+
+let foundIssues = computed(() => {
+  const apostrophes = Object.values(issues.value).filter((o) => o.Name.includes("apos"));
+  const pattern = /&apos;/g;
+  const found = teachings.value
+    .filter((t) => t.Title.match(pattern))
+    .map((t) => {
+      return {
+        Teaching: t,
+        Detected: apostrophes,
+      };
+    });
+  devmode && console.log("found", found);
+
+  return found;
+});
 </script>

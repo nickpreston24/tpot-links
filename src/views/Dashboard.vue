@@ -149,7 +149,11 @@
           </thead>
 
           <tbody class="bg-white">
-            <tr v-for="(teaching, index) in teachings" :id="index" :key="index">
+            <tr
+              v-for="(teaching, index) in teachings.slice(0, 10)"
+              :id="index"
+              :key="index"
+            >
               <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                 <div class="flex items-center">
                   <div class="flex-shrink-0 w-10 h-10">

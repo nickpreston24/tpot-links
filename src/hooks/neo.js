@@ -79,6 +79,12 @@ export const deleteNode = async (label = null, id = null) => {
   match (n: ${label}{Id: '${id}'}) detach delete n
   `.trim()
   console.log('query', query)
-  let results = await executeCypherQuery(query, {})
-  // devmode && console.log('result of deletion :>> ', results)
+  try {
+    let results = await executeCypherQuery(query, {})
+    devmode && console.log('result of deletion :>> ', results)
+    return true
+  } catch (error) {
+    console.error(error)
+    return false
+  }
 }

@@ -10,4 +10,11 @@
 
 <script setup>
 import { Page } from "./components/templates";
+import { collapsed } from "./components/organisms/sidebar/useSidebar";
+import { onMounted } from "vue-demi";
+onMounted(async () => {
+  setTimeout(() => {
+    collapsed.value = true;
+  }, 2500);
+});
 </script>

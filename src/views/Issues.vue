@@ -3,6 +3,8 @@
     <DashboardLayout>
       <Dashboard class="min-w-full" v-if="true" />
 
+      <!-- Bugs found -->
+      <h1 class="text-3xl">Bugs Reported:</h1>
       <Grid mode="photo">
         <Card class="w-auto" v-for="(bug, index) in bugs" :key="index">
           <template:header>
@@ -10,8 +12,8 @@
               <h1 class="text-xl">
                 {{ bug?.Title || "[ no title ]" }}
               </h1>
-              <Chip class="">Issues ({{ bug?.["Related Issues"]?.length }})</Chip>
-              <Chip class=""> Status: {{ bug?.Status }} </Chip>
+              <Chip>Issues ({{ bug?.["Related Issues"]?.length }})</Chip>
+              <Chip> Status: {{ bug?.Status }} </Chip>
             </Row>
           </template:header>
           <div class="m-2 text-lg text-tahiti-700">
@@ -21,42 +23,39 @@
             <Center>
               <Row class="flex-wrap text-lg">
                 <a :href="bug?.URL">
-                  <Button class="shadow-xl shadow-regal-500/30">
-                    <h2 class="">View the Page</h2>
+                  <Button>
+                    <h2 class="">View this Page</h2>
                   </Button>
                 </a>
               </Row>
             </Center>
           </template:footer>
         </Card>
-        <!-- <Button class="border-2" @click="count += 1000">{{ count }}</Button> -->
       </Grid>
 
-      <Center v-if="false">
-        <Row>
-          <pre>result? {{ result }}</pre>
-          <label for="">Search by id</label>
-          <input v-model="text" @change="onChange" type="text" />
-          <Button @click="search">GO</Button>
-        </Row>
-      </Center>
+      <!-- Known causes of issues -->
+      <h1 v-if="devmode" class="text-3xl">Things to Look for:</h1>
+      <Grid mode="photo">
+        <Card class="w-auto" v-for="(issue, index) in issues" :key="index">
+          <template:header>
+            <Row class="flex-wrap">
+              <h1 class="text-xl">
+                {{ issue?.Name || "[ no title ]" }}
+              </h1>
+            </Row>
+          </template:header>
+          <div class="m-2 text-lg text-tahiti-700">
+            {{ issue?.Description }}
+          </div>
+          <template:footer>
+            <Center>
+              <p></p>
+            </Center>
+          </template:footer>
+        </Card>
+      </Grid>
 
-      <div v-if="false">
-        <label for="">SVG ICONS</label>
-        <Stack v-for="icon in icons" :key="icon.id">
-          <Card class="bg-white">
-            <h1>{{ icon?.Name }}</h1>
-            <p>{{ icon?.Id }}</p>
-            <MySVG
-              class="w-64 h-64"
-              :width="icon?.Width"
-              :height="icon?.Height"
-              :viewbox="icon?.ViewBox"
-              :svg="icon?.Content"
-            />
-          </Card>
-        </Stack>
-      </div>
+      
     </DashboardLayout>
   </div>
 </template>
@@ -85,7 +84,6 @@ import {
 import { useBugs, useIssues, useTeachings, useSVGs } from "../hooks";
 import Chip from "../components/atoms/Chip.vue";
 import MySVG from "../hooks/MySVG.vue";
-
 // import { createSVG } from "../hooks/MySVG";
 
 const { issues } = useIssues();

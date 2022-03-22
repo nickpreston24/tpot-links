@@ -6,6 +6,23 @@
         <img :src="attachment?.url" />
       </Card>
     </Grid>
+
+    <div v-if="false">
+      <label for="">SVG ICONS</label>
+      <Stack v-for="icon in icons" :key="icon.id">
+        <Card class="bg-white">
+          <h1>{{ icon?.Name }}</h1>
+          <p>{{ icon?.Id }}</p>
+          <MySVG
+            class="w-64 h-64"
+            :width="icon?.Width"
+            :height="icon?.Height"
+            :viewbox="icon?.ViewBox"
+            :svg="icon?.Content"
+          />
+        </Card>
+      </Stack>
+    </div>
   </stack>
 </template>
 <script setup>

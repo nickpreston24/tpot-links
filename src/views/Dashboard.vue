@@ -222,7 +222,7 @@
                     </a>
                     <div>
                       <button
-                        @click="deleteTeachingNode(teaching?.Id)"
+                        @click="removeTeaching(teaching.Id)"
                         class="px-2 mx-2 rounded-md"
                       >
                         <svg
@@ -261,4 +261,9 @@ const { bugs } = useBugs();
 const { issues } = useIssues();
 const { logs } = useLogs();
 const { teachings, loading, deleteTeachingNode } = useTeachings();
+
+async function removeTeaching(id) {
+  const isDeleted = await deleteTeachingNode(id);
+  if (isDeleted) teachings.value = teachings.value?.filter((t) => t.Id !== id);
+}
 </script>

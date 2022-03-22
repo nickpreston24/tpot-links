@@ -113,6 +113,7 @@ let foundIssues = computed(() => {
         Detected: apostrophes,
       };
     });
+
   devmode && console.log("found", found);
 
   return found;

@@ -29,11 +29,10 @@ const routes = [
     name: 'Sign In',
     component: () => import('../views/SignIn.vue')
   },
-
   {
-    path: '/:pathMatch(.*)*',
-    name: '404',
-    component: () => import('../views/NotFound.vue')
+    path: '/.*',
+    name: 'Refreshed', // I'm using this to handle refreshed pages not rendering, e.g. /issues, refresh, 404.  Better to send them home
+    component: Home
   }
 ]
 const router = createRouter({

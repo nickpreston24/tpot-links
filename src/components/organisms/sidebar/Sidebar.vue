@@ -1,7 +1,7 @@
 <template>
   <div
-    @mouseover="onMouseOver"
-    @mouseleave="onMouseLeave"
+    @mouseover.native="onMouseOver"
+    @mouseleave.native="onMouseLeave"
     v-show="!hidden"
     class="text-2xl duration-300 p-25 text-tahiti-100 z-1"
     :class="className"
@@ -17,7 +17,7 @@
 
     <span class="mx-auto">
       <SidebarLink to="/" icon="fas fa-home">Home</SidebarLink>
-      <SidebarLink to="/https://tpot-scribe.vercel.app/" icon="fas fa-image"
+      <SidebarLink to="https://tpot-scribe.vercel.app/" icon="fas fa-image"
         >Scribe</SidebarLink
       >
       <SidebarLink to="/issues" icon="fas fa-gear">Issues</SidebarLink>

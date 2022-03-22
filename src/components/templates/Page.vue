@@ -16,6 +16,9 @@
       <a class="m-2" href="#">Affiliates</a>
       <a class="m-2" href="#">Help</a>
     </Stack>
+    <template slot="right">
+      <h2>Powered by Neo4j and Airtable</h2>
+    </template>
   </Footer>
 </template>
 <script>

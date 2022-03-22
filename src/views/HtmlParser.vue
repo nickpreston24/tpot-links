@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Parse Html Here</h1>
+    <h1>Parse Html Using JSDOM</h1>
     <textarea
       name="html-textbox"
       id="html-textbox"

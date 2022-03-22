@@ -39,23 +39,25 @@
       <h1 class="text-2xl">Issues Detected:</h1>
       <Grid mode="photo">
         <Card class="w-auto" v-for="(issue, index) in foundIssues" :key="index">
-          <template:header>
-            <Row class="flex-wrap">
-              <h1 class="text-xl">
-                <b>Page: </b> {{ issue?.Teaching?.Title || "[ no title ]" }}
-              </h1>
-            </Row>
-          </template:header>
-          <div class="h-32 m-2 text-lg">
-            <p><b>Issue: </b> {{ issue?.Detected?.[0].Name }}</p>
-            <b>Description: </b>
-            <p>{{ issue?.Detected?.[1].Description }}</p>
+          <div v-if="!!issue && issue?.Detected?.length > 0">
+            <template:header>
+              <Row class="flex-wrap">
+                <h1 class="text-xl">
+                  <b>Page: </b> {{ issue?.Teaching?.Title || "[ no title ]" }}
+                </h1>
+              </Row>
+            </template:header>
+            <div class="h-32 m-2 text-lg">
+              <p><b>Issue: </b> {{ issue?.Detected?.[0]?.Name }}</p>
+              <b>Description: </b>
+              <p>{{ issue?.Detected?.[1]?.Description }}</p>
+            </div>
+            <template:footer>
+              <Center>
+                <p></p>
+              </Center>
+            </template:footer>
           </div>
-          <template:footer>
-            <Center>
-              <p></p>
-            </Center>
-          </template:footer>
         </Card>
       </Grid>
     </DashboardLayout>

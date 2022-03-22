@@ -10,12 +10,8 @@
               <h1 class="text-xl">
                 {{ bug?.Title || "[ no title ]" }}
               </h1>
-              <Chip class="shadow-lg shadow-orange-400/50"
-                >Issues ({{ bug?.["Related Issues"]?.length }})</Chip
-              >
-              <Chip class="shadow-lg shadow-orange-400/50">
-                Status: {{ bug?.Status }}
-              </Chip>
+              <Chip class="">Issues ({{ bug?.["Related Issues"]?.length }})</Chip>
+              <Chip class=""> Status: {{ bug?.Status }} </Chip>
             </Row>
           </template:header>
           <div class="m-2 text-lg text-tahiti-700">

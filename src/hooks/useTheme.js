@@ -16,7 +16,7 @@ const lightPalleteAlt = computed(
 )
 
 const darkPallete = computed(
-  () => `border-regal-300  bg-regal-600 text-ocean-500`
+  () => `border-regal-300 bg-regal-600 text-ocean-500`
 )
 
 const darkPalleteAlt = computed(
@@ -40,7 +40,8 @@ export const themeMap = computed(() => {
       footer: `${darkPallete.value}`,
       dashboard: `${darkPallete.value}`,
       page: `${darkPalleteAlt.value}`,
-      tableHeader: `${darkPalleteAlt.value}`
+      tableHeader: `${darkPalleteAlt.value}`,
+      chip: `shadow-sm shadow-ocean-200/50`
     },
     light: {
       headers: `${lightPallete.value}`,
@@ -54,7 +55,8 @@ export const themeMap = computed(() => {
       footer: `${lightPallete.value}`,
       dashboard: `${lightPalleteAlt.value}`,
       page: `${lightPalleteAlt.value}`,
-      tableHeader: `${lightPallete.value}`
+      tableHeader: `${lightPallete.value}`,
+      chip: `${lightPallete.value} shadow-md shadow-tahiti-200/50`
     }
   }
 })
@@ -80,7 +82,7 @@ export const footer = computed(() => currentTheme.value['footer'])
 export const dashboard = computed(() => currentTheme.value['dashboard'])
 export const page = computed(() => currentTheme.value['page'])
 export const tableHeader = computed(() => currentTheme.value['tableHeader'])
-export const chip = `bg-orange-500 text-white border-white`
+export const chip = computed(() => currentTheme.value['chip'])
 
 // Allow theme changes, but hide the current theme value
 export const setTheme = (name = 'tahiti') => {

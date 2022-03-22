@@ -1,15 +1,20 @@
 <template>
   <stack>
     <h1>Hello, from SVGs!</h1>
-    <Stack>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum dolore ad, magnam
-        quam neque repellat ex expedita excepturi nulla ea quos, eaque quod et. Quaerat
-        aut modi nisi culpa adipisci!
-      </p>
-    </Stack>
+    <Grid mode="feed">
+      <Card v-for="(attachment, index) in attachments" :key="index">
+        <img :src="attachment?.url" />
+      </Card>
+    </Grid>
   </stack>
 </template>
 <script setup>
-import { Center, Stack, Row, Right, Left, Flex } from "../components/flex";
+import { computed } from "vue-demi";
+import { Center, Stack, Row, Right, Left, Flex, Grid } from "../components/flex";
+import { Card } from "../components/molecules";
+import { useSVGs } from "../hooks";
+
+const { icons } = useSVGs();
+const firstAttachment = computed(() => icons?.value[0]?.Attachments?.[0]);
+const attachments = computed(() => icons?.value.map((a) => a?.Attachments?.[0]));
 </script>

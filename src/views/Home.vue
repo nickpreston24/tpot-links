@@ -16,7 +16,7 @@
       <Chip v-for="(link, index) in links" :key="index">
         <router-link
           :to="link?.route"
-          class="relative flex items-center font-normal text-white no-underline rounded cursor-pointer select-none hover:bg-tahiti-500 active:bg-tahiti-800"
+          class="relative flex items-center font-normal no-underline rounded cursor-pointer select-none hover:bg-tahiti-500 active:bg-tahiti-800"
           :class="{ active: isActive }"
         >
           <transition name="fade">

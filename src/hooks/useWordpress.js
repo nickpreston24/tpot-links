@@ -1,17 +1,13 @@
 import axios from 'axios'
 import { ref, onMounted, computed, toRefs } from 'vue'
 import { countEmpty, groupBy, isArray, urlExists } from '../helpers'
-import { getTPOTFrontPage } from './wordpress'
-
+import { useStorage } from '@vueuse/core'
 const config = {
   // endpoint: process.env.REACT_APP_WP_ENDPOINT,
   endpoint: 'https://www.thepathoftruth.com/wp-json'
   // username: process.env.REACT_APP_WP_USERNAME,
   // password: process.env.REACT_APP_WP_PASSWORD,
 }
-
-// TODO: Temporary - Refactor this to be DB configurable:
-export const wpapi = new WPAPI(config)
 
 export function useWordpress() {
   const users = ref([])
@@ -21,8 +17,6 @@ export function useWordpress() {
   const tags = ref([])
   const loading = ref(false)
   const error = ref(false)
-
-  const state = useStorage('wordpress-store', { categories: [], tags: [] })
 
   /** Preload data */
   onMounted(async () => {
@@ -37,19 +31,17 @@ export function useWordpress() {
     console.log('cats?.length', categories.value?.length)
     console.log('tags?.length', tags.value?.length)
 
+    const store = useStorage('wordpress-store', {
+      categories: ['test'],
+      tags: []
+    })
+
+    console.log('store categories', store['categories'])
+
     loading.value = false
   })
 
   const categoryMap = computed(() => categories.map((c) => c?.Title))
-
-  //   const getPageBySlug = (slug: string) => wpapi.pages().slug(slug)
-
-  //   const getPageById = (id: number) => wpapi.pages().id(id)
-
-  //   const getPages = (authorId: number, perPage: number = 10) =>
-  // wpapi.pages().author(authorId).perPage(perPage)
-
-  //   const search = (term: string) => wpapi.search(term)
 
   return {
     users,

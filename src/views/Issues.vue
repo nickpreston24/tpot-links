@@ -105,7 +105,9 @@ const search = async () => {
 };
 
 let foundIssues = computed(() => {
-  const apostrophes = Object.values(issues.value).filter((o) => o.Name.includes("apos"));
+  const apostrophes = Object.values(issues.value)?.filter((o) =>
+    o?.Name?.includes("apos")
+  );
   const pattern = /&apos;/g;
   const found = teachings.value
     .filter((t) => t.Title.match(pattern))

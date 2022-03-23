@@ -120,19 +120,20 @@
       <div
         class="inline-block min-w-full align-middle border-b border-gray-200 shadow sm:rounded-lg"
       >
-        <p v-if="loading">Loading Teachings...</p>
+        <!-- <p v-if="loading">Loading Teachings...</p> -->
+        <Spinner v-if="loading" />
         <table v-else-if="!loading" class="min-w-full m-2">
           <thead :class="tableHeader">
             <tr>
               <th
-                class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left uppercase border-b border-gray-200"
+                class="px-20 py-3 text-xs font-medium leading-4 tracking-wider text-left uppercase border-b border-gray-200"
               >
                 Name
               </th>
               <th
                 class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left uppercase border-b border-gray-200"
               >
-                Title
+                Related Links
               </th>
               <th
                 class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left uppercase border-b border-gray-200"
@@ -256,15 +257,16 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import Banner from "../components/atoms/Banner.vue";
-import Breadcrumb from "../components/atoms/Breadcrumb.vue";
+import { Banner, Breadcrumb, Spinner } from "../components/atoms";
+// import Breadcrumb from "../components/atoms/Breadcrumb.vue";
 import { dashboard, tableHeader } from "../hooks/useTheme";
 import { Modal } from "../components/molecules";
-import { useBugs, useIssues, useLogs, useTeachings } from "../hooks";
+import { useBugs, useIssues, useLogs, useTeachings, useWordpress } from "../hooks";
 const { bugs } = useBugs();
 const { issues } = useIssues();
 const { logs } = useLogs();
 const { teachings, loading, deleteTeachingNode } = useTeachings();
+const { authors, categories } = useWordpress();
 
 async function removeTeaching(id) {
   const isDeleted = await deleteTeachingNode(id);

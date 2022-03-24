@@ -41,7 +41,25 @@
           class="py-2 pl-10 pr-4 ml-8 text-indigo-600 border-gray-200 rounded-md sm:w-64 focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
           type="text"
           placeholder="Search"
+          v-model="text"
         />
+        <!-- <pre>targets? {{ targets }}</pre> -->
+        <!-- <pre>text? {{ text }}</pre> -->
+        <!-- <pre>results? {{ fuzzyResults }}</pre> -->
+        <!-- <p>{{ fuzzyResults?.map((r) => r?.target) }}</p> -->
+        <ul>
+          <li v-for="(result, index) in fuzzyResults" :key="index">
+            <!-- <p>{{ result?.[0]?.target }}</p> -->
+            <!-- <p>{{ result?.[1]?.target }}</p> -->
+            <!-- <pre>{{ result?.obj}}</p> -->
+            <!-- <pre>result?.obj? {{ result?.obj }}</pre> -->
+            <span class="bg-ocean-200">
+              <h1 class="font-bold">{{ result?.Title }}</h1>
+              <!-- <p class="font-bold">{{ result?.Excerpt }}</p> -->
+            </span>
+          </li>
+        </ul>
+        <!-- <pre>inverted? {{ inverted }}</pre> -->
       </div>
     </div>
 
@@ -195,11 +213,62 @@
 import { ref, computed } from "vue";
 import { collapsed, hidden } from "../organisms/sidebar/useSidebar";
 import { Center, Stack, Row, Right, Left, Flex } from "../flex";
-import { darkMode, toggleDarkMode } from "../../hooks";
+import { darkMode, toggleDarkMode, useTeachings } from "../../hooks";
 const dropdownOpen = ref(false);
 const notificationOpen = ref(false);
 const searchbar = computed(() => {
   if (!!hidden.value) return "";
   return collapsed.value ? "ml-10" : "ml-48";
+});
+
+const { teachings } = useTeachings();
+
+const text = ref("");
+// const inverted = computed(() => {
+//   return text?.value?.reverse();
+// });
+
+// const contents = `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur doloribus facere magni impedit? Vel doloribus mollitia tempora. Veniam omnis, distinctio tenetur laudantium perspiciatis earum sequi excepturi neque dolor, necessitatibus soluta!
+
+// Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam quas accusantium excepturi officiis dolores enim iusto aliquid quos reprehenderit unde explicabo dignissimos, illum amet quod mollitia, inventore, praesentium consequatur. Sapiente!`;
+
+// async function fuzzySearch(text) {
+//   console.log("text", text);
+//   const results = fuzzysort.go(text, contents, { key: null });
+//   console.log("fuzzy results", results);
+// }
+
+const targets = computed(() => {
+  return teachings.value?.map((teaching) => {
+    return {
+      Title: teaching?.Title,
+      Content: teaching?.Contents,
+      Excerpt: teaching?.Excerpt,
+      Description: teaching?.Description,
+    };
+  });
+});
+
+/** from: https://github.com/farzher/fuzzysort */
+const options = {
+  limit: 100,
+  allowTypo: true,
+  threshold: -10000,
+  key: null,
+  keys: ["Title", "Excerpt", "Description", "Content"],
+};
+
+const fuzzyResults = computed(() => {
+  // let targets = contents.split(/[\s*.!,\t*]+/);
+  let results = fuzzysort.go(text.value, targets.value, options);
+
+  var bestResult = results?.[0];
+  if (bestResult?.length > 0) {
+    fuzzysort.highlight(bestResult?.[0]);
+    fuzzysort.highlight(bestResult?.[1]);
+  }
+  console.log("results", results);
+  // bestResult.obj.title
+  return results.map((r) => r?.obj);
 });
 </script>

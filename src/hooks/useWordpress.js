@@ -23,13 +23,13 @@ export function useWordpress() {
     loading.value = true
 
     // 2. Get all categories
-    categories.value = await axios('https://tpot-api.vercel.app/api/categories')
-    tags.value = await axios('https://tpot-api.vercel.app/api/tags')
-    users.value = await axios('https://tpot-api.vercel.app/api/users')
+    // categories.value = await axios('https://tpot-api.vercel.app/api/categories')
+    // tags.value = await axios('https://tpot-api.vercel.app/api/tags')
+    // users.value = await axios('https://tpot-api.vercel.app/api/users')
 
-    console.log('users?.length', users.value?.length)
-    console.log('cats?.length', categories.value?.length)
-    console.log('tags?.length', tags.value?.length)
+    // console.log('users?.length', users.value?.length)
+    // console.log('cats?.length', categories.value?.length)
+    // console.log('tags?.length', tags.value?.length)
 
     const store = useStorage('wordpress-store', {
       categories: ['test'],

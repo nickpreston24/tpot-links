@@ -150,11 +150,7 @@
           </thead>
 
           <tbody class="bg-white">
-            <tr
-              v-for="(teaching, index) in teachings.slice(0, 10)"
-              :id="index"
-              :key="index"
-            >
+            <tr v-for="(teaching, index) in teachings" :id="index" :key="index">
               <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                 <div class="flex items-center">
                   <div class="flex-shrink-0 w-10 h-10">
@@ -165,7 +161,7 @@
                     >
                     <!-- <img
                       class="w-10 h-10 rounded-full"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      src=""
                       alt=""
                     /> -->
                   </div>
@@ -260,7 +256,7 @@ import { ref } from "vue";
 import { Banner, Breadcrumb, Spinner } from "../components/atoms";
 // import Breadcrumb from "../components/atoms/Breadcrumb.vue";
 import { dashboard, tableHeader } from "../hooks/useTheme";
-import { Modal } from "../components/molecules";
+import { Modal, useModal } from "../components/molecules";
 import { useBugs, useIssues, useLogs, useTeachings, useWordpress } from "../hooks";
 const { bugs } = useBugs();
 const { issues } = useIssues();

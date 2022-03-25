@@ -1,11 +1,11 @@
-import Chip from './Chip.vue'
-import Button from './Button.vue'
-import Spinner from './Spinner.vue'
-import Breadcrumb from './Breadcrumb.vue'
-import Banner from './Banner.vue'
-import Gradient from './Gradient.vue'
-// import AnimatedPathSVG from "./AnimatedPathSVG.vue";
-import AnimatedPathSVGTemplate from './AnimatedPathSVGTemplate.vue'
+import Chip from "./Chip.vue";
+import Button from "./Button.vue";
+import Spinner from "./Spinner.vue";
+import Breadcrumb from "./Breadcrumb.vue";
+import Banner from "./Banner.vue";
+import Gradient from "./Gradient.vue";
+import AnimatedLetters from "./AnimatedLetters/AnimatedLetters.vue";
+import LetterPath from "./AnimatedLetters/LetterPath.vue";
 export {
   Chip,
   Button,
@@ -13,6 +13,7 @@ export {
   Breadcrumb,
   Spinner,
   Gradient,
-  //   AnimatedPathSVG,
-  AnimatedPathSVGTemplate
-}
+  LetterPath,
+  AnimatedLetters,
+  LetterPath,
+};

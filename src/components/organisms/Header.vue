@@ -25,7 +25,7 @@
       </button>
 
       <div class="relative mx-4 lg:mx-0">
-        <span class="absolute inset-y-0 left-0 flex items-center pl-3 ml-2">
+        <span class="absolute inset-y-0 left-0 flex items-center ml-2 pl-2xl">
           <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none">
             <path
               d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
@@ -48,16 +48,17 @@
         <!-- <pre>results? {{ fuzzyResults }}</pre> -->
         <!-- <p>{{ fuzzyResults?.map((r) => r?.target) }}</p> -->
         <ul>
-          <li v-for="(result, index) in fuzzyResults" :key="index">
+          <li v-for="(result, index) in fuzzyResults.slice(0, 5)" :key="index">
             <!-- <p>{{ result?.[0]?.target }}</p> -->
             <!-- <p>{{ result?.[1]?.target }}</p> -->
             <!-- <pre>{{ result?.obj}}</p> -->
             <!-- <pre>result?.obj? {{ result?.obj }}</pre> -->
-            <span class="bg-ocean-200">
+            <span :class="paragraph">
               <h1 class="font-bold">{{ result?.Title }}</h1>
               <!-- <p class="font-bold">{{ result?.Excerpt }}</p> -->
             </span>
           </li>
+          <b v-if="text">{{ fuzzyResults?.length }} Total...</b>
         </ul>
         <!-- <pre>inverted? {{ inverted }}</pre> -->
       </div>
@@ -213,7 +214,7 @@
 import { ref, computed } from "vue";
 import { collapsed, hidden } from "../organisms/sidebar/useSidebar";
 import { Center, Stack, Row, Right, Left, Flex } from "../flex";
-import { darkMode, toggleDarkMode, useTeachings } from "../../hooks";
+import { darkMode, toggleDarkMode, useTeachings, paragraph } from "../../hooks";
 const dropdownOpen = ref(false);
 const notificationOpen = ref(false);
 const searchbar = computed(() => {

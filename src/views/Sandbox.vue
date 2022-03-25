@@ -3,7 +3,7 @@
     <Grid mode="photo" class="max-h-screen p-2xl">
       <Card class="text-yellow-500 shadow-sm bg-slate-600 shadow-yellow-500">
         <Center>
-          <AnimatedPathSVG />
+          <AnimatedPathSVGTemplate />
         </Center>
       </Card>
 
@@ -38,6 +38,6 @@
 import { ref } from "vue";
 import { Center, Stack, Row, Right, Left, Flex, Grid } from "../components/flex";
 import { Card } from "../components/molecules";
-import { Gradient, AnimatedPathSVG } from "../components/atoms";
+import { Gradient, AnimatedPathSVGTemplate } from "../components/atoms";
 import { HtmlParser, AddPage, TeachingsPanel, SVGPanel } from "../views";
 </script>

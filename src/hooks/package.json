@@ -1,0 +1,6 @@
+{
+  "name": "@mpreston17/vue-hooks",
+  "version": "1.1.0",
+  "description": "hooks I use personally for easier CRUD and dealing with multiple states from multiple DB's",
+  "main": "index.js"
+}

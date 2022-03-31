@@ -5,7 +5,7 @@
   </span>
 </template>
 <script setup>
-import { createSVG } from "./svg";
+// import { createSVG } from "./svg";
 import { ref, computed } from "vue";
 
 const props = defineProps({

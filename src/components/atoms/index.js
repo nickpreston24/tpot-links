@@ -6,6 +6,7 @@ import Banner from "./Banner.vue";
 import Gradient from "./Gradient.vue";
 import AnimatedLetters from "./AnimatedLetters/AnimatedLetters.vue";
 import LetterPath from "./AnimatedLetters/LetterPath.vue";
+import useViewBox from "./AnimatedLetters/useViewBox";
 export {
   Chip,
   Button,
@@ -16,4 +17,5 @@ export {
   LetterPath,
   AnimatedLetters,
   LetterPath,
+  useViewBox,
 };

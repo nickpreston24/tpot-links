@@ -87,7 +87,7 @@ import {
 
 import { useBugs, useIssues, useTeachings, useSVGs } from "../hooks";
 import Chip from "../components/atoms/Chip.vue";
-import MySVG from "../hooks/MySVG.vue";
+import MySVG from "../components/MySVG.vue";
 import { computed } from "vue-demi";
 // import { createSVG } from "../hooks/MySVG";
 

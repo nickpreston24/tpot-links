@@ -123,6 +123,7 @@
         <!-- <p v-if="loading">Loading Teachings...</p> -->
         <Spinner v-if="loading" />
         <table v-else-if="!loading" class="min-w-full m-2">
+          <h3>Queue: {{ queueCount }}</h3>
           <thead :class="tableHeader">
             <tr>
               <th
@@ -170,8 +171,14 @@
                     <div class="text-sm font-medium leading-5 text-gray-900">
                       {{ teaching.Title }}
                     </div>
-                    <div class="text-sm leading-5">
-                      <!-- {{ teaching.Url }} -->
+                    <div v-if="!teaching?.Content" class="text-sm leading-5 text-red-700">
+                      ( No Content yet )
+                    </div>
+                    <div
+                      v-else-if="!!teaching?.Content"
+                      class="text-sm leading-5 text-ocean-500"
+                    >
+                      All Good!
                     </div>
                   </div>
                 </div>
@@ -204,8 +211,12 @@
               >
                 <div class="flex justify-around">
                   <span class="flex justify-center text-yellow-500">
-                    <a href="#" class="px-2 mx-2 rounded-md"
-                      ><svg
+                    <button @click="synchronizeTeaching(teaching.Id)">Sync</button>
+                    <button
+                      @click="editTeaching(teaching.Id)"
+                      class="px-2 mx-2 rounded-md"
+                    >
+                      <svg
                         xmlns="http://www.w3.org/2000/svg"
                         class="w-5 h-5 text-green-700"
                         viewBox="0 0 20 20"
@@ -220,26 +231,24 @@
                           clip-rule="evenodd"
                         />
                       </svg>
-                    </a>
-                    <div>
-                      <button
-                        @click="removeTeaching(teaching.Id)"
-                        class="px-2 mx-2 rounded-md"
+                    </button>
+                    <button
+                      @click="removeTeaching(teaching.Id)"
+                      class="px-2 mx-2 rounded-md"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-5 h-5 text-red-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="w-5 h-5 text-red-700"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                            clip-rule="evenodd"
-                          />
-                        </svg>
-                      </button>
-                    </div>
+                        <path
+                          fill-rule="evenodd"
+                          d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </button>
                   </span>
                 </div>
               </td>
@@ -249,22 +258,46 @@
       </div>
     </div>
   </div>
+  <Modal :show="showModal"> </Modal>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { Banner, Breadcrumb, Spinner } from "../components/atoms";
 // import Breadcrumb from "../components/atoms/Breadcrumb.vue";
 import { dashboard, tableHeader } from "../hooks/useTheme";
-import { Modal, useModal } from "../components/molecules";
+import { Modal } from "../components/molecules";
 import { useBugs, useIssues, useLogs, useTeachings, useWordpress } from "../hooks";
+import { devmode } from "../helpers";
 const { bugs } = useBugs();
 const { issues } = useIssues();
 const { logs } = useLogs();
-const { teachings, loading, deleteTeachingNode } = useTeachings();
+const { teachings, loading, deleteTeachingNode, getPageById } = useTeachings();
 const { authors, categories } = useWordpress();
 
-async function removeTeaching(id) {
+// TODO: research simple Q's or p-queue if necessary.
+const workQueue = ref([
+  {
+    work: async () => {},
+  },
+]);
+const queueCount = computed(() => workQueue?.value?.length || 0);
+
+const showModal = ref(false);
+
+async function synchronizeTeaching(id: number) {
+  const result = await getPageById([id]);
+  devmode && console.log("result", result);
+}
+
+async function editTeaching(id: number) {
+  const url = `https://www.thepathoftruth.com/wp-admin/post.php?post=${id}&action=edit`;
+  devmode && console.log("url", url);
+  // window.location.href = url;
+
+  window.open(url, "_blank");
+}
+async function removeTeaching(id: number) {
   const isDeleted = await deleteTeachingNode(id);
   if (isDeleted) teachings.value = teachings.value?.filter((t) => t.Id !== id);
 }

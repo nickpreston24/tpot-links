@@ -1,26 +1,3 @@
-<script>
-import { computed } from "vue";
-import { useRoute } from "vue-router";
-import { collapsed } from "./useSidebar";
-import { sidebar } from "../../../hooks/useTheme";
-
-export default {
-  props: {
-    to: { type: String, required: true },
-    icon: { type: String, required: true },
-  },
-  setup(props) {
-    const route = useRoute();
-    const isActive = computed(() => route?.path === props.to);
-
-    return {
-      collapsed,
-      isActive,
-    };
-  },
-};
-</script>
-
 <template>
   <router-link
     :to="to"
@@ -38,6 +15,21 @@ export default {
     </transition>
   </router-link>
 </template>
+
+<script setup>
+import { computed, defineProps } from "vue";
+import { useRoute } from "vue-router";
+import { collapsed } from "./useSidebar";
+import { sidebar } from "../../../hooks/useTheme";
+
+const props = defineProps({
+  to: { type: String, required: true },
+  icon: { type: String, required: true },
+});
+
+const route = useRoute();
+const isActive = computed(() => route?.path === props.to);
+</script>
 
 <style scoped>
 .fade-enter-active,

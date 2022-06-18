@@ -51,7 +51,6 @@ export function useTeachings() {
 
   // This has a side-effect.  It will also visit the page in the Graph database.
   const getPageById = async (ids = []) => {
-    console.log('ids', ids)
     const results = Promise.all(
       ids.map((id) => {
         const url = `https://tpot-api.vercel.app/api/pages?id=${id}`

@@ -57,7 +57,7 @@ function toNeoProps(props) {
   ).replaceAll(`"`, '')
 }
 
-export async function getRecords(label = null, limit = 35) {
+export async function getRecords(label = null, limit = 10) {
   let query = `MATCH (n:${label}) return n LIMIT ${limit}`
   devmode && console.log('query', query)
   let results = await executeCypherQuery(query, {})

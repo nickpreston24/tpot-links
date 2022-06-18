@@ -75,8 +75,8 @@
 }
 
 .radar-spinner .circle-inner {
-  border-left-color: #ff1d5e;
-  border-right-color: #ff1d5e;
+  border-left-color: #1db7ff;
+  border-right-color: #1db7ff;
 }
 
 @keyframes radar-spinner-animation {

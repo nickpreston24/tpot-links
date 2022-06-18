@@ -37,7 +37,7 @@ https://vuejs.org/guide/built-ins/teleport.html#basic-usage
     </Transition>
   </Teleport>
 </template>
-<script>
+<script lang="ts">
 import { ref, watch } from "vue";
 import { onClickOutside } from "@vueuse/core";
 

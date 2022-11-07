@@ -1,7 +1,7 @@
 <template>
   <div>
     <Grid mode="photo" class="max-h-screen p-2xl">
-      <Card class="bg-[#000] shadow-sm">
+      <Card v-if="false" class="bg-[#000] shadow-sm">
         <Stack>
           <AnimatedLetters
             v-if="false"

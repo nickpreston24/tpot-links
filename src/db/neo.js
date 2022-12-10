@@ -4,40 +4,48 @@ import neo4j from 'neo4j-driver'
 const uri = import.meta.env.VITE_VERCEL_URI
 const user = import.meta.env.VITE_VERCEL_USER
 const password = import.meta.env.VITE_VERCEL_PASSWORD
-// console.log("password :>> ", password);
-// console.log("user :>> ", user);
-// console.log("uri :>> ", uri);
+const devmode = import.meta.env.DEV
+
+console.log('devmode :>> ', devmode)
+
+devmode && console.log('password :>> ', password)
+devmode && console.log('user :>> ', user)
+devmode && console.log('uri :>> ', uri)
+
 const driver = neo4j.driver(uri, neo4j.auth.basic(user, password))
 
-export async function user_likes_build(userName, buildName) {
-  // To learn more about sessions: https://neo4j.com/docs/javascript-manual/current/session-api/
+export async function get_first_10_pages() {
   const session = driver.session({ database: 'neo4j' })
+  //  devmode && console.log('driver :>> ', driver)
+  //  devmode && console.log('session :>> ', session)
+
+  const readQuery = `
+    match (page:Page)
+    return page
+    limit 10`
 
   try {
-    // To learn more about the Cypher syntax, see: https://neo4j.com/docs/cypher-manual/current/
-    // The Reference Card is also a good resource for keywords: https://neo4j.com/docs/cypher-refcard/current/
-    const writeQuery = `MERGE (p1:User { name: $userName })
-                                  MERGE (p2:Build { name: $buildName })
-                                  MERGE (p1)-[:LIKES]->(p2)
-                                  RETURN p1, p2`
-
-    // Write transactions allow the driver to handle retries and transient errors.
-    const writeResult = await session.executeWrite((tx) =>
-      tx.run(writeQuery, { userName, buildName })
+    const results = await session.executeRead((transaction) =>
+      transaction.run(readQuery)
     )
-
-    // Check the write results.
-    writeResult.records.forEach((record) => {
-      const user = record.get('p1')
-      const build = record.get('p2')
-      console.info(
-        `Created Like between: ${user.properties.name}, ${build.properties.name}`
-      )
+    devmode && console.log('results :>> ', results)
+    results.records.forEach((record) => {
+      console.log(`Found Paper: ${record.get('page')}`)
     })
+
+    const dtos = to_dto(results.records)
+    console.log('dtos :>> ', dtos)
+
+    // return results
+    return dtos
   } catch (error) {
     console.error(`Something went wrong: ${error}`)
   } finally {
-    // Close down the session if you're not using it anymore.
     await session.close()
   }
+}
+
+export const to_dto = (records = []) => {
+  devmode && console.log('records', records)
+  return records?.map((r) => r['_fields']?.map((r) => r?.properties)?.[0])
 }

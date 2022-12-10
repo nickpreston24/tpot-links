@@ -1,59 +1,56 @@
 <template>
-  <div
-    @mouseover.native="onMouseOver"
-    @mouseleave.native="onMouseLeave"
-    v-show="!hidden"
-    class="text-2xl duration-300 p-25 text-tahiti-100 z-1"
-    :class="className"
-    :style="{ width: sidebarWidth }"
-  >
-    <h1 class="mx-auto">
-      <span v-if="collapsed">
-        <div>T</div>
-        <div>L</div>
-      </span>
-      <span class="" v-else>TPOT Links</span>
-    </h1>
-
-    <span class="mx-auto">
-      <SidebarLink to="/" icon="fas fa-home">Home</SidebarLink>
-      <SidebarLink to="https://tpot-scribe.vercel.app/" icon="fas fa-image"
-        >Scribe</SidebarLink
-      >
-      <SidebarLink to="/issues" icon="fas fa-gear">Issues</SidebarLink>
-      <SidebarLink to="/about" icon="fas fa-image">About</SidebarLink>
-      <SidebarLink v-if="devmode" to="/sandbox" icon="fas fa-image">Sandbox</SidebarLink>
-    </span>
-    <span
-      class="absolute bottom-0 p-2 mb-4 ml-4 text-white transition duration-200 opacity-70"
-      @click="toggleSidebar"
-      :class="{ 'rotate-180': collapsed }"
-    >
-      <!-- <icon class="fas fa-angle-double-left" /> -->
-      <icon v-if="mode === 'RIGHT'" class="text-xl"> {{ ">>" }} </icon>
-      <icon v-else class="text-xl"> {{ "<<" }} </icon>
-    </span>
+  <div class="drawer">
+    <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-content flex flex-col">
+      <!-- Navbar -->
+      <div class="w-full navbar bg-base-300">
+        <div class="flex-none lg:hidden">
+          <label for="my-drawer-3" class="btn btn-square btn-ghost">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              class="inline-block w-6 h-6 stroke-current"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </label>
+        </div>
+        <div class="flex-1 px-2 mx-2">TPOT Links</div>
+        <div class="flex-none hidden lg:block">
+          <ul class="menu menu-horizontal">
+            <li v-for="route in routes">
+              <SidebarLink :to="route.path">{{ route.name }}</SidebarLink>
+              <!-- <a :href="route.path">{{ route.name }}</a> -->
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- Page content here -->
+      <slot></slot>
+    </div>
+    <div class="drawer-side">
+      <label for="my-drawer-3" class="drawer-overlay"></label>
+      <ul class="menu p-4 w-80 bg-ghost">
+        <li v-for="route in routes">
+          <SidebarLink :to="route.path">{{ route.name }}</SidebarLink>
+          <!-- <a :href="route.path">{{ route.name }}</a> -->
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 <script setup>
-import { devmode } from "../../../helpers";
-import SidebarLink from "./SidebarLink.vue";
-import { collapsed, toggleSidebar, sidebarWidth, className, hidden } from "./useSidebar";
-const props = defineProps({
-  mode: { type: String, default: "LEFT" },
-});
+import { routes } from '../../../router/index.js'
 
-function onMouseLeave() {
-  collapsed.value = true;
-  // setTimeout(() => {
-  // }, 1500);s
-}
-
-function onMouseOver() {
-  // setTimeout(() => {
-  collapsed.value = false;
-  // }, 500);
-}
+const devmode = import.meta.env.DEV
+devmode && console.log('routes :>> ', routes)
+import SidebarLink from '../sidebar/SidebarLink.vue'
 </script>
 <style scoped>
 .rotate-180 {

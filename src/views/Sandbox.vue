@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="h-screen">
     <Grid mode="photo" class="max-h-screen p-2xl">
       <Card v-if="false" class="bg-[#000] shadow-sm">
         <Stack>
@@ -129,27 +129,40 @@
         </Stack>
       </Card>
 
-      <Card v-if="false" class="text-yellow-500 shadow-sm bg-red shadow-yellow-500">
+      <Card
+        v-if="false"
+        class="text-yellow-500 shadow-sm bg-red shadow-yellow-500"
+      >
         <HtmlParser />
       </Card>
-      <Card v-if="false" class="text-yellow-500 shadow-sm bg-red shadow-yellow-500">
+      <Card
+        v-if="false"
+        class="text-yellow-500 shadow-sm bg-red shadow-yellow-500"
+      >
         <AddPage />
       </Card>
 
-      <Card v-if="false" class="text-yellow-500 shadow-sm bg-red shadow-yellow-500">
+      <Card
+        v-if="false"
+        class="text-yellow-500 shadow-sm bg-red shadow-yellow-500"
+      >
         <TeachingsPanel />
       </Card>
 
-      <Card v-if="false" class="text-yellow-500 shadow-sm bg-red shadow-yellow-500">
+      <Card
+        v-if="false"
+        class="text-yellow-500 shadow-sm bg-red shadow-yellow-500"
+      >
         <SVGPanel />
       </Card>
 
       <Card v-if="false">
         <Gradient>
           <span class="p-lg"
-            >Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi, praesentium
-            sequi hic facere, et, tenetur sint doloribus cumque expedita sit alias ipsam
-            omnis eaque qui suscipit inventore. Eum, quaerat magnam.</span
+            >Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi,
+            praesentium sequi hic facere, et, tenetur sint doloribus cumque
+            expedita sit alias ipsam omnis eaque qui suscipit inventore. Eum,
+            quaerat magnam.</span
           >
         </Gradient>
       </Card>
@@ -157,11 +170,11 @@
   </div>
 </template>
 <script setup>
-import { onMounted, ref } from "vue";
-import { Center, Stack, Row, Right, Left, Flex, Grid } from "../components/flex";
-import { Card } from "../components/molecules";
-import { Gradient, AnimatedLetters, LetterPath } from "../components/atoms";
-import { HtmlParser, AddPage, TeachingsPanel, SVGPanel } from "../views";
+import { onMounted, ref } from 'vue'
+import { Center, Stack, Row, Right, Left, Flex, Grid } from '../components/flex'
+import { Card } from '../components/molecules'
+import { Gradient, AnimatedLetters, LetterPath } from '../components/atoms'
+import { HtmlParser, AddPage, TeachingsPanel, SVGPanel } from '../views'
 
 // Control the viewbox from here:
 // const { viewBox, x, y, width, height } = useViewBox();

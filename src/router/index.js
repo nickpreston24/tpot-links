@@ -5,19 +5,21 @@ import {
   createWebHistory
 } from 'vue-router'
 import Home from '../views/Home.vue'
-const routes = [
+export const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home
   },
   {
-    path: '/about',
-    component: () => import('../views/About.vue')
+    path: '/issues',
+    name: 'Issues',
+    component: () => import('../views/Issues.vue')
   },
   {
-    path: '/issues',
-    component: () => import('../views/Issues.vue')
+    name: 'Admin',
+    path: '/admin',
+    component: () => import('../views/Admin.vue')
   },
   {
     path: '/sandbox',
@@ -30,10 +32,15 @@ const routes = [
     component: () => import('../views/SignIn.vue')
   },
   {
-    path: '/.*',
-    name: 'Refreshed', // I'm using this to handle refreshed pages not rendering, e.g. /issues, refresh, 404.  Better to send them home
-    component: Home
+    path: '/about',
+    name: 'About',
+    component: () => import('../views/About.vue')
   }
+  // {
+  //   path: '/.*',
+  //   name: 'Refreshed', // I'm using this to handle refreshed pages not rendering, e.g. /issues, refresh, 404.  Better to send them home
+  //   component: Home
+  // }
 ]
 const router = createRouter({
   //  Provide the history implementation to use. We are using the hash history for simplicity here.

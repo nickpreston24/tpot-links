@@ -10,10 +10,14 @@
           <template:header>
             <Stack class="flex-wrap">
               <h1 class="text-xl">
-                {{ bug?.Title || "[ no title ]" }}
+                {{ bug?.Title || '[ no title ]' }}
               </h1>
               <Row>
-                <Chip> Known Fixes: ({{ bug?.["Related Issues"]?.length || 0 }})</Chip>
+                <Chip>
+                  Known Fixes: ({{
+                    bug?.['Related Issues']?.length || 0
+                  }})</Chip
+                >
                 <Chip> Status: {{ bug?.Status }} </Chip>
               </Row>
             </Stack>
@@ -43,7 +47,7 @@
             <template:header>
               <Row class="flex-wrap">
                 <h1 class="text-xl">
-                  <b>Page: </b> {{ issue?.Teaching?.Title || "[ no title ]" }}
+                  <b>Page: </b> {{ issue?.Teaching?.Title || '[ no title ]' }}
                 </h1>
               </Row>
             </template:header>
@@ -65,16 +69,16 @@
 </template>
 
 <script setup>
-import { DashboardLayout } from "../components/templates";
-import { Center, Stack, Row, Right, Left, Flex, Grid } from "../components/flex";
-import BugsPanel from "../views/BugsPanel.vue";
-import TeachingsPanel from "../views/TeachingsPanel.vue";
-import LogsPanel from "../views/LogsPanel.vue";
-import { ref } from "vue  ";
-import { devmode } from "../helpers";
-import { Dashboard } from "../views";
-import { Button } from "../components/atoms";
-import { Card, SVGIconBase } from "../components/molecules";
+import { DashboardLayout } from '../components/templates'
+import { Center, Stack, Row, Right, Left, Flex, Grid } from '../components/flex'
+import BugsPanel from '../views/BugsPanel.vue'
+import TeachingsPanel from '../views/TeachingsPanel.vue'
+import LogsPanel from '../views/LogsPanel.vue'
+import { ref } from 'vue  '
+import { devmode } from '../helpers'
+import { Dashboard } from '../views'
+import { Button } from '../components/atoms'
+import { Card, SVGIconBase } from '../components/molecules'
 import {
   primaryButton,
   header,
@@ -82,44 +86,44 @@ import {
   page,
   toggleDarkMode,
   themeMap,
-  darkMode,
-} from "../hooks/useTheme";
+  darkMode
+} from '../hooks/useTheme'
 
-import { useBugs, useIssues, useTeachings, useSVGs } from "../hooks";
-import Chip from "../components/atoms/Chip.vue";
-import MySVG from "../components/MySVG.vue";
-import { computed } from "vue-demi";
+import { useBugs, useIssues, useSVGs } from '../hooks'
+import Chip from '../components/atoms/Chip.vue'
+import MySVG from '../components/MySVG.vue'
+import { computed } from 'vue-demi'
 // import { createSVG } from "../hooks/MySVG";
 
-const { issues } = useIssues();
-const { bugs } = useBugs();
-const { getPageById, teachings } = useTeachings();
-const { getSVGIcon, icons } = useSVGs();
+// const { issues } = useIssues()
+// const { bugs } = useBugs()
+// const { getPageById, teachings } = useTeachings();
+// const { getSVGIcon, icons } = useSVGs()
 
-const text = ref("12345");
-const result = ref("");
+// const text = ref('12345')
+// const result = ref('')
 
-const search = async () => {
-  const response = await getPageById(text.value);
-  result.value = response?.data;
-};
+// const search = async () => {
+//   const response = await getPageById(text.value)
+//   result.value = response?.data
+// }
 
-let foundIssues = computed(() => {
-  const apostrophes = Object.values(issues.value)?.filter((o) =>
-    o?.Name?.includes("apos")
-  );
-  const pattern = /&apos;/g;
-  const found = teachings.value
-    .filter((t) => t.Title.match(pattern))
-    .map((t) => {
-      return {
-        Teaching: t,
-        Detected: apostrophes,
-      };
-    });
+// let foundIssues = computed(() => {
+//   const apostrophes = Object.values(issues.value)?.filter((o) =>
+//     o?.Name?.includes('apos')
+//   )
+//   const pattern = /&apos;/g
+//   const found = teachings.value
+//     .filter((t) => t.Title.match(pattern))
+//     .map((t) => {
+//       return {
+//         Teaching: t,
+//         Detected: apostrophes
+//       }
+//     })
 
-  devmode && console.log("found", found);
+//   devmode && console.log('found', found)
 
-  return found;
-});
+//   return found
+// })
 </script>

@@ -46,8 +46,11 @@ module.exports = {
     screens: {
       sm: '480px',
       md: '768px',
-      lg: '976px',
-      xl: '1440px'
+      // lg: '976px',
+      lg: '1024px',
+      // xl: '1440px',
+      xl: '1280px',
+      '2xl': '1536px'
     },
     fontSize: {
       tiny: '.875rem',
@@ -296,6 +299,79 @@ module.exports = {
       opacity: ['disabled']
     }
   },
+  daisyui: {
+    themes: [
+      {
+        corporate_dark: {
+          primary: '#1a3ba5',
+
+          secondary: '#b56109',
+
+          accent: '#eaa94d',
+
+          neutral: '#161822',
+
+          'base-100': '#3C4049',
+
+          info: '#86D5F4',
+
+          success: '#78DEBE',
+
+          warning: '#F6D241',
+
+          error: '#F5755B'
+        }
+        // tpot_light: {
+        //   primary: '#1a3ba5',
+
+        //   secondary: '#b56109',
+
+        //   accent: '#eaa94d',
+
+        //   neutral: '#161822',
+
+        //   'base-100': '#3C4049',
+
+        //   info: '#86D5F4',
+
+        //   success: '#78DEBE',
+
+        //   warning: '#F6D241',
+
+        //   error: '#F5755B'
+        // }
+      },
+      'light',
+      'dark',
+      'cupcake',
+      'bumblebee',
+      'emerald',
+      'corporate',
+      'synthwave',
+      'retro',
+      'cyberpunk',
+      'valentine',
+      'halloween',
+      'garden',
+      'forest',
+      'aqua',
+      'lofi',
+      'pastel',
+      'fantasy',
+      'wireframe',
+      'black',
+      'luxury',
+      'dracula',
+      'cmyk',
+      'autumn',
+      'business',
+      'acid',
+      'lemonade',
+      'night',
+      'coffee',
+      'winter'
+    ]
+  },
   plugins: [
     require('daisyui')
     // https://github.com/vueform/slider
@@ -311,5 +387,6 @@ module.exports = {
     //   })
     // })
   ],
+
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}']
 }

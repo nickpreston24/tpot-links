@@ -6,7 +6,7 @@ const modes = {
   RIGHT: 'fixed top-0 bottom-0 right-0 flex flex-col float-right'
 }
 
-export const background = ref('bg-tahiti-600')
+// export const background = ref('bg-tahiti-600')
 export const collapsed = ref(false)
 export const hidden = ref(false)
 export const mode = ref('LEFT')
@@ -20,5 +20,6 @@ export const sidebarWidth = computed(
 )
 
 export const className = computed(() => {
-  return `${modes[mode.value.toUpperCase()]} ${sidebar.value}`
+  return ''
+  // return `${modes[mode.value.toUpperCase()]} ${sidebar.value}`
 })

@@ -60,16 +60,8 @@
       </div>
     </div>
 
-    <!-- <div x-data="{ open: false }">
-      <button @click="open = true">Expand</button>
-
-      <span x-show="open"> Content... </span>
-    </div> -->
-
     <!-- CARDS -->
-    <div
-      class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:col-auto gap-4"
-    >
+    <div class="grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
       <div
         x-data="{ show_excerpt: false }"
         v-for="page in pages"
@@ -112,12 +104,14 @@
                   </div>
                 </div>
 
-                <div v-if="false && page?.Categories !== ''">
+                <div v-if="true && page?.Categories !== ''">
                   <span
                     class="badge bade-lg badge-info"
-                    v-for="category in page.Categories?.split(',')"
+                    v-for="category_id in page.Categories?.split(',')"
                   >
-                    {{ category }}
+                    <!-- {{ categories.find((c) => c.id === category_id) }} -->
+                    {{ category_id }}
+                    {{}}
                   </span>
                 </div>
               </div>
@@ -144,40 +138,6 @@
                   <button class="btn btn-ghost">Update</button>
                 </div>
               </div>
-              <!-- <div class="form-control w-52">
-              <label class="cursor-pointer label">
-                <span class="label-text">Remember me</span>
-                <input
-                  type="checkbox"
-                  class="toggle toggle-secondary"
-                  checked
-                  x-on:checked="show_excerpt = !show_excerpt"
-                />
-              </label>
-
-              <span x-text="show_excerpt"></span>
-            </div> -->
-
-              <!-- <p class="text-secondary" v-show="false" v-html="page.Excerpt"></p> -->
-
-              <!-- 
-            <div v-show="show_excerpt">
-            </div> -->
-
-              <!-- 
-           
-
-            <div class="form-control">
-              <label class="cursor-pointer label">
-                <span class="label-text text-lg text-info">Comments Allowed?</span>
-                <input
-                  type="checkbox"
-                  checked="checked"
-                  disabled
-                  class="checkbox checkbox-success"
-                />
-              </label>
-            </div> -->
             </div>
           </div>
         </div>
@@ -193,11 +153,58 @@ const devmode = import.meta.env.DEV
 
 const count = ref(-5)
 const pages = ref([])
+console.log('window.categories :>> ', window.categories)
+const categories = ref(window.categories)
+console.log(
+  'categories.value :>> ',
+  categories.value.map((cat) => cat.id)
+)
 
 console.log('count :>> ', count)
 onMounted(async () => {
   const results = await get_first_10_pages()
   pages.value = results
-  pages && console.log('pages :>> ', pages)
+  pages && console.log('pages :>> ', pages.value)
 })
 </script>
+
+<!-- <div x-data="{ open: false }">
+                <button @click="open = true">Expand</button>
+
+                <span x-show="open"> Content... </span>
+              </div> -->
+
+<!-- <div class="form-control w-52">
+              <label class="cursor-pointer label">
+                <span class="label-text">Remember me</span>
+                <input
+                  type="checkbox"
+                  class="toggle toggle-secondary"
+                  checked
+                  x-on:checked="show_excerpt = !show_excerpt"
+                />
+              </label>
+
+              <span x-text="show_excerpt"></span>
+            </div> -->
+
+<!-- <p class="text-secondary" v-show="false" v-html="page.Excerpt"></p> -->
+
+<!-- 
+            <div v-show="show_excerpt">
+            </div> -->
+
+<!-- 
+           
+
+            <div class="form-control">
+              <label class="cursor-pointer label">
+                <span class="label-text text-lg text-info">Comments Allowed?</span>
+                <input
+                  type="checkbox"
+                  checked="checked"
+                  disabled
+                  class="checkbox checkbox-success"
+                />
+              </label>
+            </div> -->

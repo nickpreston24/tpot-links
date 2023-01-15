@@ -1,6 +1,6 @@
 ## Checklist
 
-- [ ] Fuzzysort + Search (useSearchBox, + useTeachings)
+- [x] Fuzzysort + Search (useSearchBox, + useTeachings)
 - [ ] Start detecting issues for existing papers, staring with
 
   - [ ] the # of links w/o '/chinese/', '\_chinese' in the url

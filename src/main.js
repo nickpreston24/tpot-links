@@ -17,21 +17,21 @@ console.log('local_categories :>> ', local_categories)
 window.categories = local_categories
 // const categories = ref([])
 
-let has_stored_categories = !!stored_categories || stored_categories?.length > 0
-if (!has_stored_categories) {
-  let categories_lookup_url = `https://www.thepathoftruth.com/wp-json/wp/v2/categories`
+// let has_stored_categories = !!stored_categories || stored_categories?.length > 0
+// if (!has_stored_categories) {
+//   let categories_lookup_url = `https://www.thepathoftruth.com/wp-json/wp/v2/categories`
 
-  try {
-    const response = await fetch(categories_lookup_url)
-    console.log('response', response?.data)
-    window.categories = response.data
-  } catch (ex) {
-    console.error(ex)
+//   try {
+//     const response = await fetch(categories_lookup_url)
+//     console.log('response', response?.data)
+//     window.categories = response.data
+//   } catch (ex) {
+//     console.error(ex)
 
-    localStorage.setItem('categories', local_categories)
-    // categories.value = local_categories
+//     localStorage.setItem('categories', local_categories)
+//     // categories.value = local_categories
 
-    window.categories = local_categories
-    console.log('stored categories :>> ', local_categories)
-  }
-}
+//     window.categories = local_categories
+//     console.log('stored categories :>> ', local_categories)
+//   }
+// }
